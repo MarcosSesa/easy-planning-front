@@ -1,0 +1,82 @@
+<form (submit)="onSubmit($event)" class="form">
+  <div class="form__field">
+    @let invalidUsername = authForm.username().invalid() && authForm.username().touched();
+    <span class="form__field__label">{{ "PAGES.LOGIN.USERNAME_LABEL" | translate }}</span>
+    <tui-textfield [class.invalid]="invalidUsername">
+      <input [formField]="authForm.username" placeholder="Marcos" tuiTextfield />
+    </tui-textfield>
+    @if (invalidUsername) {
+      <div class="form-field-error">
+        @for (error of authForm.username().errors(); track error.kind) {
+          <span>{{ error.message | translate }}</span>
+        }
+      </div>
+    }
+  </div>
+
+
+  <div class="form__field">
+    @let invalidEmail = authForm.email().invalid() && authForm.email().touched();
+    <span class="form__field__label">{{ "PAGES.LOGIN.EMAIL_LABEL" | translate }}</span>
+    <tui-textfield [class.invalid]="invalidEmail">
+      <input [formField]="authForm.email" placeholder="name@example.com" tuiTextfield type="email" />
+    </tui-textfield>
+    @if (invalidEmail) {
+      <div class="form-field-error">
+        @for (error of authForm.email().errors(); track error.kind) {
+          <span>{{ error.message | translate }}</span>
+        }
+      </div>
+    }
+  </div>
+
+  <div class="form__field">
+    @let invalidPassword = authForm.password().invalid() && authForm.password().touched();
+    <span class="form__field__label">{{ "PAGES.LOGIN.PASSWORD_LABEL" | translate }}</span>
+    <tui-textfield [class.invalid]="invalidPassword">
+      <input [formField]="authForm.password" placeholder="••••••••" tuiTextfield type="password" />
+      <tui-icon tuiPassword />
+    </tui-textfield>
+    @if (invalidPassword) {
+      <div class="form-field-error">
+        @for (error of authForm.password().errors(); track error.kind) {
+          <span>{{ error.message | translate }}</span>
+        }
+      </div>
+    }
+  </div>
+
+  <div class="form__field">
+    @let invalidRepeatPassword = authForm.repeatPassword().invalid() && authForm.repeatPassword().touched();
+    <span class="form__field__label">{{ "PAGES.LOGIN.REPEAT_PASSWORD_LABEL" | translate }}</span>
+    <tui-textfield [class.invalid]="invalidRepeatPassword">
+      <input [formField]="authForm.repeatPassword" placeholder="••••••••" tuiTextfield type="password" />
+      <tui-icon tuiPassword />
+    </tui-textfield>
+    @if (invalidRepeatPassword) {
+      <div class="form-field-error">
+        @for (error of authForm.repeatPassword().errors(); track error.kind) {
+          <span>{{ error.message | translate }}</span>
+        }
+      </div>
+    }
+  </div>
+
+  @if (authForm().errors(); as errors) {
+    <div class="form-field-error">
+      @for (error of errors; track error.kind) {
+        <span>{{ error.message | translate}}</span>
+      }
+    </div>
+  }
+
+  <button [disabled]="authForm().invalid()" type="submit" class="form__button" size="m"
+          tuiButton>
+    @if (authForm().submitting()) {
+      <tui-loader [inheritColor]="true" />
+    } @else {
+      <span>{{ "PAGES.LOGIN.REGISTER" | translate }}</span>
+    }
+  </button>
+</form>
+

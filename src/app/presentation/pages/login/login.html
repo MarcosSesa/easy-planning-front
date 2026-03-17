@@ -1,0 +1,23 @@
+<div class="login-container">
+  <div class="login-container__header">
+    <span class="login-container__header__title">{{ "PAGES.LOGIN.LOGIN_TITLE" | translate }}</span>
+    <span class="login-container__header__subtitle">{{ "PAGES.LOGIN.LOGIN_SUBTITLE" | translate }}</span>
+  </div>
+
+  @if (isLogin()) {
+    <app-login-form animate.enter="enter-animation" />
+  } @else {
+    <app-register-form animate.enter="enter-animation" />
+  }
+
+  <div class="login-container__footer">
+    @if (isLogin()) {
+      <span class="login-container__footer__title">{{ "PAGES.LOGIN.ANY_ACCOUNT" | translate }}<strong
+        (click)="changeMode()">{{ "PAGES.LOGIN.CREATE_ACCOUNT" | translate }}</strong></span>
+    } @else {
+      <span class="login-container__footer__title">{{ "PAGES.LOGIN.ALREADY_ACCOUNT" | translate }}<strong
+        (click)="changeMode()">{{ "PAGES.LOGIN.LOGIN" | translate }}</strong></span>
+    }
+
+  </div>
+</div>

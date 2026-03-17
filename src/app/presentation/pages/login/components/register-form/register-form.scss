@@ -1,0 +1,15 @@
+@use '../../login';
+
+:host {
+  display: flex;
+  width: 100%;
+  flex-direction: column;
+  height: 100%;
+  background-image: none;
+}
+
+.form {
+  @include login.shared-form;
+}
+
+

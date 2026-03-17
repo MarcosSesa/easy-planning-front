@@ -1,0 +1,50 @@
+<form (submit)="onSubmit($event)" class="form">
+  <div class="form__field">
+    @let invalidEmail = authForm.email().invalid() && authForm.email().touched();
+    <span class="form__field__label">{{ "PAGES.LOGIN.EMAIL_LABEL" | translate }}</span>
+    <tui-textfield [class.invalid]="invalidEmail">
+      <input [formField]="authForm.email" placeholder="name@example.com" tuiTextfield type="email" />
+    </tui-textfield>
+    @if (invalidEmail) {
+      <div class="form-field-error">
+        @for (error of authForm.email().errors(); track error.kind) {
+          <span>{{ error.message  | translate }}</span>
+        }
+      </div>
+    }
+  </div>
+
+  <div class="form__field">
+    @let invalidPassword = authForm.password().invalid() && authForm.password().touched();
+    <span class="form__field__label">{{ "PAGES.LOGIN.PASSWORD_LABEL" | translate }}</span>
+    <tui-textfield [class.invalid]="invalidPassword">
+      <input [formField]="authForm.password" placeholder="••••••••" tuiTextfield type="password" />
+      <tui-icon tuiPassword />
+    </tui-textfield>
+    @if (invalidPassword) {
+      <div class="form-field-error">
+        @for (error of authForm.password().errors(); track error.kind) {
+          <span>{{ error.message | translate }}</span>
+        }
+      </div>
+    }
+  </div>
+
+  @if (authForm().errors(); as errors) {
+    <div class="form-field-error">
+      @for (error of errors; track error.kind) {
+        <span>{{ error.message | translate }}</span>
+      }
+    </div>
+  }
+
+  <button [disabled]="authForm().invalid() || authForm().submitting()" type="submit" class="form__button" size="m"
+          tuiButton>
+    @if (authForm().submitting()) {
+      <tui-loader [inheritColor]="true" />
+    } @else {
+      <span>{{ "PAGES.LOGIN.LOGIN" | translate }}</span>
+    }
+  </button>
+</form>
+

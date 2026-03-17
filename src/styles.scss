@@ -1,10 +1,33 @@
 @use '@taiga-ui/core/styles/taiga-ui-local';
+
+:root {
+  --tui-text-primary: #FFFFFF;
+  --tui-text-secondary: #94A3B8;
+  --tui-text-primary-on-accent-2: #13C8EC;
+
+  --tui-background-base: #101F22;
+  --tui-background-accent-1: #13C8EC;
+  --tui-text-primary-on-accent-1: #101F22;
+  --tui-background-accent-1-hover: #3FD6F2;
+
+}
+
 html,
 body {
   height: 100%;
 }
+
 body {
   margin: 0;
   font-family: Roboto, "Helvetica Neue", sans-serif;
-  background-color: #131218;
 }
+
+
+//CUSTOM COMMON CLASSES
+
+.form-field-error{
+  color: #ff8a1b;
+  font-size: 12px;
+}
+
+

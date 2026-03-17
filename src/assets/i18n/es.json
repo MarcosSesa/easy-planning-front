@@ -1,0 +1,34 @@
+{
+  "APP_NAME": "EasyPlannings",
+  "COMPONENTS": {
+    "HEADER": {
+      "LOGIN": "Iniciar Sesión"
+    }
+  },
+  "PAGES": {
+    "LOGIN": {
+      "LOGIN_TITLE": "Bienvenido de nuevo",
+      "LOGIN_SUBTITLE": "Organiza tu próxima aventura con el equipo.",
+      "EMAIL_LABEL": "Email",
+      "USERNAME_LABEL": "Nombre",
+      "PASSWORD_LABEL": "Contraseña",
+      "REPEAT_PASSWORD_LABEL": "Repetir contraseña",
+      "REGISTER": "Registrarse",
+      "CREATE_ACCOUNT": "Crear una cuenta.",
+      "ANY_ACCOUNT": "¿No tienes una cuenta? ",
+      "LOGIN": "Iniciar sesión.",
+      "ALREADY_ACCOUNT": "¿Ya tienes una cuenta? "
+    }
+  },
+  "COMMON": {
+    "VALIDATORS": {
+      "EMAIL_REQUIRED": "El correo electrónico es obligatorio",
+      "EMAIL_INVALID": "Ingresa una dirección de correo electrónico válida",
+      "PASSWORD_REQUIRED": "La contraseña es obligatoria",
+      "PASSWORD_MIN_LENGTH": "La contraseña debe tener al menos 8 caracteres",
+      "PASSWORDS_DO_NOT_MATCH": "Las contraseñas no coinciden",
+      "USERNAME_REQUIRED": "El nombre de usuario es obligatorio",
+      "LOGIN_FAILED": "Email o contraseña incorrectos"
+    }
+  }
+}
