@@ -4,12 +4,16 @@ import { jwtDecode } from 'jwt-decode';
 import { LoginUserBodyInterface } from 'app/entities/interfaces/login.interface';
 import { AuthRepository } from 'app/data/repositories/auth/auth.repository';
 import { RegisterUserBodyInterface } from 'app/entities/interfaces/register.interface';
+import { Router } from '@angular/router';
+import { JwtDecodedInterface } from 'app/entities/interfaces/jwt-decoded.interface';
+import { map } from 'rxjs/operators';
 
 @Injectable({
   providedIn: 'root',
 })
 export class AuthUseCase {
   readonly #authRepository = inject(AuthRepository);
+  readonly #router = inject(Router);
 
   readonly #isLogged = new BehaviorSubject<boolean>(Boolean(this.token));
 
@@ -20,21 +24,28 @@ export class AuthUseCase {
   }
 
   get tokenClaims() {
-    return this.token ? jwtDecode(this.token) : null;
+    return this.token ? jwtDecode<JwtDecodedInterface>(this.token) : null;
   }
 
   logout() {
     this.#setToken(null);
     this.#isLogged.next(false);
+    this.#router.navigate(['/']);
   }
 
-  login = (user: LoginUserBodyInterface) =>
-    this.#authRepository.getUserLogged(user).pipe(tap((response) => this.#setToken(response.data)));
+  login(user: LoginUserBodyInterface) {
+    return this.#authRepository.getUserLogged(user).pipe(
+      tap((response) => this.#setToken(response.data)),
+      map((response) => jwtDecode<JwtDecodedInterface>(response.data)),
+    );
+  }
 
-  register = (user: RegisterUserBodyInterface) =>
-    this.#authRepository
-      .getUserRegister(user)
-      .pipe(tap((response) => this.#setToken(response.data)));
+  register(user: RegisterUserBodyInterface) {
+    return this.#authRepository.getUserRegister(user).pipe(
+      tap((response) => this.#setToken(response.data)),
+      map((response) => jwtDecode<JwtDecodedInterface>(response.data)),
+    );
+  }
 
   #setToken(token: string | null) {
     if (token) {

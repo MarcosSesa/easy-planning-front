@@ -1,18 +1,18 @@
 import { Routes } from '@angular/router';
-import { Landing } from 'app/presentation/pages/landing/landing';
-import { Login } from 'app/presentation/pages/login/login';
 
 export const routes: Routes = [
   {
     path: '',
-    component: Landing,
-  },
-  {
-    path: 'login',
-    component: Login,
+    loadComponent: () =>
+      import('./presentation/pages/landing/landing-page.component').then(
+        (m) => m.LandingPageComponent,
+      ),
   },
   {
     path: '**',
-    component: Landing,
+    loadComponent: () =>
+      import('./presentation/pages/landing/landing-page.component').then(
+        (m) => m.LandingPageComponent,
+      ),
   },
 ];

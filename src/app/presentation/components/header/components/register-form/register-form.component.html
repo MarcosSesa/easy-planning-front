@@ -1,13 +1,18 @@
+<div class="header">
+  <span class="header__title">{{ "COMPONENTS.HEADER.REGISTER_TITLE" | translate }}</span>
+  <span class="header__subtitle">{{ "COMPONENTS.HEADER.REGISTER_SUBTITLE" | translate }}</span>
+</div>
+
 <form (submit)="onSubmit($event)" class="form">
   <div class="form__field">
-    @let invalidUsername = authForm.username().invalid() && authForm.username().touched();
-    <span class="form__field__label">{{ "PAGES.LOGIN.USERNAME_LABEL" | translate }}</span>
+    @let invalidUsername = authForm.name().invalid() && authForm.name().touched();
+    <span class="form__field__label">{{ "COMPONENTS.HEADER.USERNAME_LABEL" | translate }}</span>
     <tui-textfield [class.invalid]="invalidUsername">
-      <input [formField]="authForm.username" placeholder="Marcos" tuiTextfield />
+      <input [formField]="authForm.name" placeholder="Marcos" tuiTextfield />
     </tui-textfield>
     @if (invalidUsername) {
       <div class="form-field-error">
-        @for (error of authForm.username().errors(); track error.kind) {
+        @for (error of authForm.name().errors(); track error.kind) {
           <span>{{ error.message | translate }}</span>
         }
       </div>
@@ -17,7 +22,7 @@
 
   <div class="form__field">
     @let invalidEmail = authForm.email().invalid() && authForm.email().touched();
-    <span class="form__field__label">{{ "PAGES.LOGIN.EMAIL_LABEL" | translate }}</span>
+    <span class="form__field__label">{{ "COMPONENTS.HEADER.EMAIL_LABEL" | translate }}</span>
     <tui-textfield [class.invalid]="invalidEmail">
       <input [formField]="authForm.email" placeholder="name@example.com" tuiTextfield type="email" />
     </tui-textfield>
@@ -32,7 +37,7 @@
 
   <div class="form__field">
     @let invalidPassword = authForm.password().invalid() && authForm.password().touched();
-    <span class="form__field__label">{{ "PAGES.LOGIN.PASSWORD_LABEL" | translate }}</span>
+    <span class="form__field__label">{{ "COMPONENTS.HEADER.PASSWORD_LABEL" | translate }}</span>
     <tui-textfield [class.invalid]="invalidPassword">
       <input [formField]="authForm.password" placeholder="••••••••" tuiTextfield type="password" />
       <tui-icon tuiPassword />
@@ -48,7 +53,7 @@
 
   <div class="form__field">
     @let invalidRepeatPassword = authForm.repeatPassword().invalid() && authForm.repeatPassword().touched();
-    <span class="form__field__label">{{ "PAGES.LOGIN.REPEAT_PASSWORD_LABEL" | translate }}</span>
+    <span class="form__field__label">{{ "COMPONENTS.HEADER.REPEAT_PASSWORD_LABEL" | translate }}</span>
     <tui-textfield [class.invalid]="invalidRepeatPassword">
       <input [formField]="authForm.repeatPassword" placeholder="••••••••" tuiTextfield type="password" />
       <tui-icon tuiPassword />
@@ -75,7 +80,7 @@
     @if (authForm().submitting()) {
       <tui-loader [inheritColor]="true" />
     } @else {
-      <span>{{ "PAGES.LOGIN.REGISTER" | translate }}</span>
+      <span>{{ "COMPONENTS.HEADER.REGISTER" | translate }}</span>
     }
   </button>
 </form>

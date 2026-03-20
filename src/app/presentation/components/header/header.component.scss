@@ -1,0 +1,80 @@
+:host {
+  display: flex;
+  height: 75px;
+  padding: 1rem 2.5rem;
+  border-bottom: 1px solid var(--tui-background-neutral-2);
+
+  align-items: center;
+  justify-content: space-between;
+}
+
+.header-title {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+  font-size: 1.5rem;
+  font-weight: bold;
+  cursor: pointer;
+  transition: 150ms all;
+
+  &:hover {
+    scale: 1.01
+  }
+
+  &__name {
+    color: var(--tui-text-primary);
+  }
+}
+
+.header-actions {
+  display: flex;
+  gap: 1rem;
+  align-items: center;
+
+  &__nav-element {
+    color: var(--tui-text-primary);
+    font-size: 1rem;
+    transition: all 300ms;
+
+    &:hover {
+      text-decoration: underline;
+      cursor: pointer;
+      scale: 1.05;
+    }
+  }
+
+  &__icon {
+    color: var(--tui-text-primary);
+    width: 20px;
+    height: 20px;
+    transition: all 300ms;
+
+    &:hover {
+      cursor: pointer;
+      scale: 1.1;
+    }
+  }
+
+  &__login {
+    --tui-radius-m: 40px;
+    transition: 150ms all;
+
+    &:hover {
+      box-shadow: 0 0 15px var(--tui-background-accent-2);
+      scale: 1.01;
+    }
+  }
+
+  &__user-img {
+    background-color: var(--tui-background-accent-2);
+    color: var(--tui-background-accent-1);
+    width: 40px;
+    height: 40px;
+  }
+}
+
+.header-dropdown {
+  display: flex;
+  flex-direction: column;
+  padding: 1rem;
+}

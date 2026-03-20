@@ -1,14 +1,35 @@
 @use '@taiga-ui/core/styles/taiga-ui-local';
 
 :root {
-  --tui-text-primary: #FFFFFF;
-  --tui-text-secondary: #94A3B8;
-  --tui-text-primary-on-accent-2: #13C8EC;
+  //TEXT
 
-  --tui-background-base: #101F22;
-  --tui-background-accent-1: #13C8EC;
-  --tui-text-primary-on-accent-1: #101F22;
-  --tui-background-accent-1-hover: #3FD6F2;
+  --tui-text-primary: #0F172A;
+  --tui-text-secondary: #FFFFFF;
+  --tui-text-tertiary: #64748B;
+  --tui-text-disabled: #94A3B8;
+  --tui-text-negative: #E00B41;
+  --tui-text-positive: #E00B41;
+  --tui-text-link: #3B82F6;
+
+  // BACKGROUNDS
+
+  --tui-background-base: #F7F7F7;
+  --tui-base-01: #F7F7F7;
+  --tui-base-02: #EEEEEE;
+  --tui-base-03: #E5E5E5;
+  --tui-base-04: #D1D5DB;
+  --tui-base-05: #9CA3AF;
+  --tui-base-06: #6B7280;
+  --tui-base-07: #374151;
+
+  --tui-background: #FFFFFF;
+  --tui-background-neutral-1: #F3F4F6;
+  --tui-background-neutral-2: #EBEBEB;
+  --tui-background-accent-1: #E00B41;
+  --tui-background-accent-1-hover: #E00B41;
+  --tui-background-accent-2: #FFB8BD;
+  --tui-background-accent-3: rgba(255, 90, 95, 0.11);
+
 
 }
 
@@ -19,15 +40,71 @@ body {
 
 body {
   margin: 0;
-  font-family: Roboto, "Helvetica Neue", sans-serif;
+  font-family: Inter, "Helvetica Neue", sans-serif;
 }
 
 
 //CUSTOM COMMON CLASSES
 
-.form-field-error{
-  color: #ff8a1b;
+.form-field-error {
+  color: var(--tui-text-negative);
   font-size: 12px;
 }
+
+@mixin shared-form {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  width: 100%;
+  gap: 1.5rem;
+
+  --tui-background-base: white;
+  --tui-service-autofill-background: white;
+
+  &__field {
+    display: flex;
+    flex-direction: column;
+    width: 100%;
+    gap: 0.5rem;
+
+
+    &__label {
+      color: var(--tui-text-primary);
+      font-size: 1rem;
+    }
+
+    tui-textfield {
+      width: 100%;
+      border: solid 1px var(--tui-background-neutral-2);
+
+      input {
+        --t-shadow: none;
+        caret-color: var(--tui-text-primary);
+        outline-color: transparent;
+      }
+
+      input:hover {
+        box-shadow: none
+      }
+
+      input::placeholder {
+        color: var(--tui-text-disabled);
+        font-size: 1rem;
+      }
+    }
+  }
+
+  &__button {
+    width: 100%;
+    box-shadow: 0 0 15px rgba(19, 200, 236, 0.3);
+    transition: 150ms all;
+  }
+
+  &__button:hover {
+    scale: 1.01;
+  }
+}
+
 
 

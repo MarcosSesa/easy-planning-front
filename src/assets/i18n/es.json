@@ -2,22 +2,39 @@
   "APP_NAME": "EasyPlannings",
   "COMPONENTS": {
     "HEADER": {
-      "LOGIN": "Iniciar Sesión"
-    }
-  },
-  "PAGES": {
-    "LOGIN": {
+      "LOGIN": "Iniciar Sesión",
+      "LOGIN_SUCCESS": "¡Bienvenido de nuevo, {{username}}!",
       "LOGIN_TITLE": "Bienvenido de nuevo",
       "LOGIN_SUBTITLE": "Organiza tu próxima aventura con el equipo.",
+      "REGISTER": "Registrarse",
+      "REGISTER_SUCCESS": "¡Cuenta creada con éxito! Bienvenido, {{username}}.",
+      "REGISTER_TITLE": "Bienvenido",
+      "REGISTER_SUBTITLE": "Organiza tu próxima aventura con el equipo.",
+      "MY_TRIPS": "Mis Viajes",
+      "LOGOUT": "Cerrar Sesión",
       "EMAIL_LABEL": "Email",
       "USERNAME_LABEL": "Nombre",
       "PASSWORD_LABEL": "Contraseña",
       "REPEAT_PASSWORD_LABEL": "Repetir contraseña",
-      "REGISTER": "Registrarse",
       "CREATE_ACCOUNT": "Crear una cuenta.",
-      "ANY_ACCOUNT": "¿No tienes una cuenta? ",
-      "LOGIN": "Iniciar sesión.",
-      "ALREADY_ACCOUNT": "¿Ya tienes una cuenta? "
+      "ANY_ACCOUNT": "¿No tienes una cuenta? "
+    }
+  },
+  "PAGES": {
+    "LANDING": {
+      "HERO_1": "Planifica tu próxima",
+      "HERO_2": "aventura, en grupo.",
+      "DESCRIPTION": "El planificador de viajes colaborativo todo en uno. Crea itinerarios, actividades y deja que la IA trabaje por ti.",
+      "ADD_TRIP": "Crear nuevo viaje",
+      "WATCH_DEMO": "Ver demo",
+      "WHY_CHOOSE_US": "¿Por qué los viajeros eligen TripSync?",
+      "WHY_CHOOSE_US_DESCRIPTION": "Experimenta el futuro de la planificación de viajes con herramientas diseñadas para exploradores modernos.",
+      "FEATURE_1_TITLE": "Colaboración en tiempo real",
+      "FEATURE_1_DESC": "Mira los cambios al instante mientras tus amigos añaden destinos, opinan sobre lugares y deciden actividades al momento.",
+      "FEATURE_2_TITLE": "Asistente de IA",
+      "FEATURE_2_DESC": "Deja que nuestro planificador impulsado por IA te sugiera joyas ocultas, optimice tus rutas diarias y encuentre lugares únicos.",
+      "FEATURE_3_TITLE": "Gestión de grupos",
+      "FEATURE_3_DESC": "Centraliza vuelos, hoteles y división de gastos en un solo panel. Olvida las hojas de cálculo desordenadas."
     }
   },
   "COMMON": {

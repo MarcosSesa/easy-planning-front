@@ -1,7 +1,12 @@
+<div class="header">
+  <span class="header__title">{{ "COMPONENTS.HEADER.LOGIN_TITLE" | translate }}</span>
+  <span class="header__subtitle">{{ "COMPONENTS.HEADER.LOGIN_SUBTITLE" | translate }}</span>
+</div>
+
 <form (submit)="onSubmit($event)" class="form">
   <div class="form__field">
     @let invalidEmail = authForm.email().invalid() && authForm.email().touched();
-    <span class="form__field__label">{{ "PAGES.LOGIN.EMAIL_LABEL" | translate }}</span>
+    <span class="form__field__label">{{ "COMPONENTS.HEADER.EMAIL_LABEL" | translate }}</span>
     <tui-textfield [class.invalid]="invalidEmail">
       <input [formField]="authForm.email" placeholder="name@example.com" tuiTextfield type="email" />
     </tui-textfield>
@@ -16,7 +21,7 @@
 
   <div class="form__field">
     @let invalidPassword = authForm.password().invalid() && authForm.password().touched();
-    <span class="form__field__label">{{ "PAGES.LOGIN.PASSWORD_LABEL" | translate }}</span>
+    <span class="form__field__label">{{ "COMPONENTS.HEADER.PASSWORD_LABEL" | translate }}</span>
     <tui-textfield [class.invalid]="invalidPassword">
       <input [formField]="authForm.password" placeholder="••••••••" tuiTextfield type="password" />
       <tui-icon tuiPassword />
@@ -43,7 +48,7 @@
     @if (authForm().submitting()) {
       <tui-loader [inheritColor]="true" />
     } @else {
-      <span>{{ "PAGES.LOGIN.LOGIN" | translate }}</span>
+      <span>{{ "COMPONENTS.HEADER.LOGIN" | translate }}</span>
     }
   </button>
 </form>

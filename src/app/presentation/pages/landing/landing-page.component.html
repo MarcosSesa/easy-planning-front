@@ -1,0 +1,54 @@
+<app-header></app-header>
+<div class="landing">
+
+  <div class="landing__hero">
+    <span class="landing__hero__title-1">{{ 'PAGES.LANDING.HERO_1' | translate }}</span>
+    <span class="landing__hero__title-2">{{ 'PAGES.LANDING.HERO_2' | translate }}</span>
+    <span class="landing__hero__description">{{ 'PAGES.LANDING.DESCRIPTION' | translate }}</span>
+    <div class="landing__hero__actions">
+      <button class="landing__hero__actions__add-trip" size="m" tuiButton type="button">
+        <tui-icon icon="@tui.badge-plus" [style.height.rem]="2" />
+        <span>{{ 'PAGES.LANDING.ADD_TRIP' | translate }}</span>
+      </button>
+      <button class="landing__hero__actions__watch-demo" size="m" tuiButton type="button">
+        <tui-icon icon="@tui.monitor-play" [style.height.rem]="2" />
+        <span>{{ 'PAGES.LANDING.WATCH_DEMO' | translate }}</span>
+      </button>
+    </div>
+  </div>
+
+  <div class="landing__first-section">
+    <span class="landing__first-section__title">{{ 'PAGES.LANDING.WHY_CHOOSE_US' | translate }}</span>
+    <span class="landing__first-section__subtitle">{{ 'PAGES.LANDING.WHY_CHOOSE_US_DESCRIPTION' | translate }}</span>
+    <div class="landing__first-section__features">
+      <div class="landing__first-section__features__item">
+        <div class="landing__first-section__features__item-icon">
+          <tui-icon icon="@tui.users" [style.height.rem]="2" />
+        </div>
+        <span
+          class="landing__first-section__features__item-title">{{ 'PAGES.LANDING.FEATURE_1_TITLE' | translate }}</span>
+        <span
+          class="landing__first-section__features__item-subtitle">{{ 'PAGES.LANDING.FEATURE_1_DESC' | translate }}</span>
+      </div>
+      <div class="landing__first-section__features__item">
+        <div class="landing__first-section__features__item-icon">
+          <tui-icon icon="@tui.sparkles" [style.height.rem]="2" />
+        </div>
+        <span
+          class="landing__first-section__features__item-title">{{ 'PAGES.LANDING.FEATURE_2_TITLE' | translate }}</span>
+        <span
+          class="landing__first-section__features__item-subtitle">{{ 'PAGES.LANDING.FEATURE_2_DESC' | translate }}</span>
+      </div>
+      <div class="landing__first-section__features__item">
+        <div class="landing__first-section__features__item-icon">
+          <tui-icon icon="@tui.list-todo" [style.height.rem]="2" />
+        </div>
+        <span
+          class="landing__first-section__features__item-title">{{ 'PAGES.LANDING.FEATURE_3_TITLE' | translate }}</span>
+        <span
+          class="landing__first-section__features__item-subtitle">{{ 'PAGES.LANDING.FEATURE_3_DESC' | translate }}</span>
+      </div>
+    </div>
+  </div>
+</div>
+

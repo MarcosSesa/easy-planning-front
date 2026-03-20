@@ -1,0 +1,21 @@
+<div class="header-title" routerLink="/">
+  <img ngSrc="/assets/svg/app-icon.svg" alt="App Logo" width="32" height="32">
+  <span class="header-title__name">{{ 'APP_NAME' | translate }}</span>
+</div>
+<div class="header-actions">
+  @if (isLoggedIn()) {
+    <span class="header-actions__nav-element">{{ 'COMPONENTS.HEADER.MY_TRIPS' | translate }}</span>
+    <tui-icon class="header-actions__icon" icon="@tui.bell" />
+    <tui-icon (click)="logout()" class="header-actions__icon" icon="@tui.log-out" />
+    <tui-avatar [src]="usernameInitials" class="header-actions__user-img" />
+  } @else {
+    <span class="header-actions__nav-element" (click)="onClick('register')">{{ 'COMPONENTS.HEADER.REGISTER' | translate }}</span>
+    <button (click)="onClick('login')" class="header-actions__login" size="m"
+            tuiButton>{{ 'COMPONENTS.HEADER.LOGIN' | translate }}
+    </button>
+
+  }
+</div>
+
+
+

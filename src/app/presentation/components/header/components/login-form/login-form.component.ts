@@ -1,20 +1,24 @@
 import { ChangeDetectionStrategy, Component, inject, signal } from '@angular/core';
-import { TuiButton, TuiIcon, TuiLoader, TuiTextfield } from '@taiga-ui/core';
+import { TuiButton, TuiDialogContext, TuiIcon, TuiLoader, TuiTextfield } from '@taiga-ui/core';
 import { email, form, FormField, minLength, required, submit } from '@angular/forms/signals';
-import { TranslatePipe } from '@ngx-translate/core';
-import { TuiPassword } from '@taiga-ui/kit';
+import { TranslatePipe, TranslateService } from '@ngx-translate/core';
 import { firstValueFrom } from 'rxjs';
+import { TuiPassword } from '@taiga-ui/kit';
 import { AuthUseCase } from 'app/domain/use-cases/auth/auth.use-case';
+import { injectContext } from '@taiga-ui/polymorpheus';
 
 @Component({
   selector: 'app-login-form',
   imports: [TuiTextfield, FormField, TuiIcon, TranslatePipe, TuiPassword, TuiButton, TuiLoader],
-  templateUrl: './login-form.html',
-  styleUrl: './login-form.scss',
+  templateUrl: './login-form.component.html',
+  styleUrl: './login-form.component.scss',
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
-export class LoginForm {
+export class LoginFormComponent {
   readonly #authUseCase = inject(AuthUseCase);
+  readonly #translateService = inject(TranslateService);
+
+  protected readonly context = injectContext<TuiDialogContext<string, string>>();
 
   protected readonly authFormModel = signal({
     email: '',
@@ -33,7 +37,12 @@ export class LoginForm {
     submit(this.authForm, async () => {
       const credentials = this.authFormModel();
       try {
-        await firstValueFrom(this.#authUseCase.login(credentials));
+        const claims = await firstValueFrom(this.#authUseCase.login(credentials));
+        this.context.completeWith(
+          this.#translateService.instant('COMPONENTS.HEADER.LOGIN_SUCCESS', {
+            username: claims.username,
+          }),
+        );
         return undefined;
       } catch (error) {
         return [
