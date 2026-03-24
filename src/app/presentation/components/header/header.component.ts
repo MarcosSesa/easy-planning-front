@@ -23,7 +23,7 @@ export class HeaderComponent {
   readonly #dialogService = inject(TuiDialogService);
   readonly #alertService = inject(TuiAlertService);
 
-  readonly isLoggedIn = toSignal(this.#authUseCase.isLogged);
+  readonly isLoggedIn = toSignal(this.#authUseCase.isLogged$);
 
   readonly usernameInitials = this.#authUseCase.tokenClaims?.username
     ?.split(' ')

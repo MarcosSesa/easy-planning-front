@@ -1,5 +1,13 @@
 import { Component, inject, signal } from '@angular/core';
-import { email, form, FormField, minLength, required, submit } from '@angular/forms/signals';
+import {
+  email,
+  FieldTree,
+  form,
+  FormField,
+  minLength,
+  required,
+  submit,
+} from '@angular/forms/signals';
 import { matchField } from 'app/presentation/utils/validators/match-fields.validator';
 import { TuiButton, TuiDialogContext, TuiIcon, TuiLoader, TuiTextfield } from '@taiga-ui/core';
 import { TranslatePipe, TranslateService } from '@ngx-translate/core';
@@ -7,6 +15,13 @@ import { TuiPassword } from '@taiga-ui/kit';
 import { AuthUseCase } from 'app/domain/use-cases/auth/auth.use-case';
 import { firstValueFrom } from 'rxjs';
 import { injectContext } from '@taiga-ui/polymorpheus';
+
+interface RegisterFormInterface {
+  name: string;
+  email: string;
+  password: string;
+  repeatPassword: string;
+}
 
 @Component({
   selector: 'app-register-form',
@@ -20,14 +35,14 @@ export class RegisterFormComponent {
 
   protected readonly context = injectContext<TuiDialogContext<string, string>>();
 
-  protected readonly authFormModel = signal({
+  protected readonly authFormModel = signal<RegisterFormInterface>({
     name: '',
     email: '',
     password: '',
     repeatPassword: '',
   });
 
-  protected authForm = form(this.authFormModel, (field) => {
+  protected authForm: FieldTree<RegisterFormInterface> = form(this.authFormModel, (field) => {
     required(field.email, { message: 'COMMON.VALIDATORS.EMAIL_REQUIRED' });
     email(field.email, { message: 'COMMON.VALIDATORS.EMAIL_INVALID' });
     required(field.password, { message: 'COMMON.VALIDATORS.PASSWORD_REQUIRED' });

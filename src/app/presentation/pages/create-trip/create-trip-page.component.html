@@ -1,0 +1,92 @@
+<div class="info">
+  <span class="info__title">{{ 'PAGES.CREATE_TRIP.INFO_TITLE' | translate }}</span>
+  <span class="info__subtitle">{{ 'PAGES.CREATE_TRIP.INFO_DESCRIPTION' | translate }}</span>
+  <div class="info__list-item">
+    <div class="info__list-item__icon">
+      <tui-icon icon="@tui.calendar-search" />
+    </div>
+    <div class="info__list-item__content">
+      <span class="info__list-item__content__title">{{ 'PAGES.CREATE_TRIP.FEATURE_1_TITLE' | translate }}</span>
+      <span class="info__list-item__content__subtitle">{{ 'PAGES.CREATE_TRIP.FEATURE_1_DESC' | translate }}</span>
+    </div>
+
+  </div>
+  <div class="info__list-item">
+    <div class="info__list-item__icon">
+      <tui-icon icon="@tui.wand-sparkles" />
+    </div>
+    <div class="info__list-item__content">
+      <span class="info__list-item__content__title">{{ 'PAGES.CREATE_TRIP.FEATURE_2_TITLE' | translate }}</span>
+      <span class="info__list-item__content__subtitle">{{ 'PAGES.CREATE_TRIP.FEATURE_2_DESC' | translate }}</span>
+    </div>
+
+  </div>
+  <div class="info__list-item">
+    <div class="info__list-item__icon">
+      <tui-icon icon="@tui.users-round" />
+    </div>
+    <div class="info__list-item__content">
+      <span class="info__list-item__content__title">{{ 'PAGES.CREATE_TRIP.FEATURE_3_TITLE' | translate }}</span>
+      <span class="info__list-item__content__subtitle">{{ 'PAGES.CREATE_TRIP.FEATURE_3_DESC' | translate }}</span>
+    </div>
+
+  </div>
+</div>
+
+<div class="form-container">
+  <div class="form-container__header">
+    <tui-icon icon="@tui.palette" />
+    <span class="form-container__header__title">{{ 'PAGES.CREATE_TRIP.TRIP_DETAILS' | translate }}</span>
+  </div>
+  <form class="form-container__form">
+
+    <div class="form-container__form__field">
+      @let invalidTitle = createTripForm.title().invalid() && createTripForm.title().touched();
+      <span class="form-container__form__field__label">{{ "PAGES.CREATE_TRIP.LOCATION_LABEL" | translate }}</span>
+      <tui-textfield [tuiTextfieldSize]="'m'">
+        <input [formField]="createTripForm.title" placeholder="Marcos" tuiTextfield />
+      </tui-textfield>
+      @if (invalidTitle) {
+        <div class="form-field-error">
+          @for (error of createTripForm.title().errors(); track error.kind) {
+            <span>{{ error.message | translate }}</span>
+          }
+        </div>
+      }
+    </div>
+
+    <div class="form-container__form__field">
+      @let invalidDescription = createTripForm.description().invalid() && createTripForm.description().touched();
+      <span class="form-container__form__field__label">{{ "PAGES.CREATE_TRIP.DESCRIPTION_LABEL" | translate }}</span>
+      <tui-textfield [tuiTextfieldSize]="'m'">
+        <textarea [formField]="createTripForm.description" placeholder="Placeholder" tuiTextarea></textarea>
+      </tui-textfield>
+      @if (invalidDescription) {
+        <div class="form-field-error">
+          @for (error of createTripForm.description().errors(); track error.kind) {
+            <span>{{ error.message | translate }}</span>
+          }
+        </div>
+      }
+    </div>
+
+    <div class="form-container__form__field">
+      @let invalidDate = createTripForm.date().invalid() && createTripForm.date().touched();
+      <span class="form-container__form__field__label">{{ "PAGES.CREATE_TRIP.DATE_LABEL" | translate }}</span>
+      <tui-textfield [tuiTextfieldSize]="'m'">
+        <input [formField]="createTripForm.date" placeholder="Marcos" tuiTextfield />
+      </tui-textfield>
+      @if (invalidDate) {
+        <div class="form-field-error">
+          @for (error of createTripForm.date().errors(); track error.kind) {
+            <span>{{ error.message | translate }}</span>
+          }
+        </div>
+      }
+    </div>
+
+    <button type="submit" class="form-container__form__button" size="m" tuiButton>
+      <span>{{ "PAGES.CREATE_TRIP.CREATE_BUTTON" | translate }}</span>
+    </button>
+  </form>
+</div>

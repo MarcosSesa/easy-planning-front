@@ -1,4 +1,3 @@
-<app-header></app-header>
 <div class="landing">
 
   <div class="landing__hero">
@@ -6,10 +5,12 @@
     <span class="landing__hero__title-2">{{ 'PAGES.LANDING.HERO_2' | translate }}</span>
     <span class="landing__hero__description">{{ 'PAGES.LANDING.DESCRIPTION' | translate }}</span>
     <div class="landing__hero__actions">
-      <button class="landing__hero__actions__add-trip" size="m" tuiButton type="button">
-        <tui-icon icon="@tui.badge-plus" [style.height.rem]="2" />
-        <span>{{ 'PAGES.LANDING.ADD_TRIP' | translate }}</span>
-      </button>
+      @if (isLogged()) {
+        <button routerLink="/create-trip" class="landing__hero__actions__add-trip" size="m" tuiButton type="button">
+          <tui-icon icon="@tui.badge-plus" [style.height.rem]="2" />
+          <span>{{ 'PAGES.LANDING.ADD_TRIP' | translate }}</span>
+        </button>
+      }
       <button class="landing__hero__actions__watch-demo" size="m" tuiButton type="button">
         <tui-icon icon="@tui.monitor-play" [style.height.rem]="2" />
         <span>{{ 'PAGES.LANDING.WATCH_DEMO' | translate }}</span>

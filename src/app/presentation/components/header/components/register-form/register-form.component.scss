@@ -1,4 +1,4 @@
-@use '../../../../../../styles' as *;
+@use "styles";
 
 :host {
   display: flex;
@@ -8,6 +8,7 @@
   background-image: none;
   gap: 1.5rem;
 }
+
 .header {
   display: flex;
   flex-direction: column;
@@ -25,7 +26,39 @@
 }
 
 .form {
-  @include shared-form;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  width: 100%;
+  gap: 1.5rem;
+
+  --tui-background-base: white;
+  --tui-service-autofill-background: white;
+
+  &__field {
+    @extend %common-form-field;
+
+    &__label {
+      color: var(--tui-text-primary);
+      font-size: 1rem;
+    }
+
+    tui-textfield {
+      @extend %tui-textField;
+    }
+  }
+
+  &__button {
+    width: 100%;
+    box-shadow: 0 0 15px rgba(19, 200, 236, 0.3);
+    transition: 150ms all;
+  }
+
+  &__button:hover {
+    scale: 1.01;
+  }
+
 }
 
 

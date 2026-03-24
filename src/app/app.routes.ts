@@ -1,4 +1,5 @@
 import { Routes } from '@angular/router';
+import { authGuard } from 'app/domain/guards/auth.guard';
 
 export const routes: Routes = [
   {
@@ -6,6 +7,14 @@ export const routes: Routes = [
     loadComponent: () =>
       import('./presentation/pages/landing/landing-page.component').then(
         (m) => m.LandingPageComponent,
+      ),
+  },
+  {
+    path: 'create-trip',
+    canActivate: [authGuard],
+    loadComponent: () =>
+      import('./presentation/pages/create-trip/create-trip-page.component').then(
+        (m) => m.CreateTripPageComponent,
       ),
   },
   {

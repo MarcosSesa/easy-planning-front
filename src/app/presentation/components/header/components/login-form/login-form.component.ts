@@ -1,11 +1,24 @@
 import { ChangeDetectionStrategy, Component, inject, signal } from '@angular/core';
 import { TuiButton, TuiDialogContext, TuiIcon, TuiLoader, TuiTextfield } from '@taiga-ui/core';
-import { email, form, FormField, minLength, required, submit } from '@angular/forms/signals';
+import {
+  email,
+  FieldTree,
+  form,
+  FormField,
+  minLength,
+  required,
+  submit,
+} from '@angular/forms/signals';
 import { TranslatePipe, TranslateService } from '@ngx-translate/core';
 import { firstValueFrom } from 'rxjs';
 import { TuiPassword } from '@taiga-ui/kit';
 import { AuthUseCase } from 'app/domain/use-cases/auth/auth.use-case';
 import { injectContext } from '@taiga-ui/polymorpheus';
+
+interface LoginFormInterface {
+  email: string;
+  password: string;
+}
 
 @Component({
   selector: 'app-login-form',
@@ -20,12 +33,12 @@ export class LoginFormComponent {
 
   protected readonly context = injectContext<TuiDialogContext<string, string>>();
 
-  protected readonly authFormModel = signal({
+  protected readonly authFormModel = signal<LoginFormInterface>({
     email: '',
     password: '',
   });
 
-  protected authForm = form(this.authFormModel, (field) => {
+  protected authForm: FieldTree<LoginFormInterface> = form(this.authFormModel, (field) => {
     required(field.email, { message: 'COMMON.VALIDATORS.EMAIL_REQUIRED' });
     email(field.email, { message: 'COMMON.VALIDATORS.EMAIL_INVALID' });
     required(field.password, { message: 'COMMON.VALIDATORS.PASSWORD_REQUIRED' });

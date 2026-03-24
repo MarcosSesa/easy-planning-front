@@ -17,7 +17,8 @@ export class AuthUseCase {
 
   readonly #isLogged = new BehaviorSubject<boolean>(Boolean(this.token));
 
-  isLogged = this.#isLogged.asObservable();
+  isLogged$ = this.#isLogged.asObservable();
+  isLogged = this.#isLogged.getValue();
 
   get token() {
     return localStorage.getItem('token');

@@ -31,17 +31,21 @@
   --tui-background-accent-3: rgba(255, 90, 95, 0.11);
 
 
+
 }
 
-html,
-body {
+html, body {
   height: 100%;
 }
 
 body {
+  display: flex;
+  flex-direction: column;
   margin: 0;
   font-family: Inter, "Helvetica Neue", sans-serif;
 }
+
+
 
 
 //CUSTOM COMMON CLASSES
@@ -51,60 +55,68 @@ body {
   font-size: 12px;
 }
 
-@mixin shared-form {
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-  align-items: center;
+%tui-textField {
   width: 100%;
-  gap: 1.5rem;
+  border: solid 1px var(--tui-background-neutral-2);
 
-  --tui-background-base: white;
-  --tui-service-autofill-background: white;
-
-  &__field {
-    display: flex;
-    flex-direction: column;
-    width: 100%;
-    gap: 0.5rem;
-
-
-    &__label {
-      color: var(--tui-text-primary);
-      font-size: 1rem;
-    }
-
-    tui-textfield {
-      width: 100%;
-      border: solid 1px var(--tui-background-neutral-2);
-
-      input {
-        --t-shadow: none;
-        caret-color: var(--tui-text-primary);
-        outline-color: transparent;
-      }
-
-      input:hover {
-        box-shadow: none
-      }
-
-      input::placeholder {
-        color: var(--tui-text-disabled);
-        font-size: 1rem;
-      }
-    }
+  textarea {
+    --t-shadow: none;
+    caret-color: var(--tui-text-primary);
+    outline-color: transparent;
   }
 
-  &__button {
-    width: 100%;
-    box-shadow: 0 0 15px rgba(19, 200, 236, 0.3);
-    transition: 150ms all;
+  textarea:hover {
+    box-shadow: none
   }
 
-  &__button:hover {
-    scale: 1.01;
+  textarea::placeholder {
+    color: var(--tui-text-disabled);
+    font-size: 1rem;
+  }
+
+  textarea:focus::placeholder {
+    color: var(--tui-text-disabled);
+  }
+
+  input {
+    --t-shadow: none;
+    caret-color: var(--tui-text-primary);
+    outline-color: transparent;
+  }
+
+  input:hover {
+    box-shadow: none
+  }
+
+  input::placeholder {
+    color: var(--tui-text-disabled);
+    font-size: 1rem;
+  }
+
+  input:focus::placeholder {
+    color: var(--tui-text-disabled);
   }
 }
+
+%common-form-field {
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+  gap: 0.5rem;
+}
+
+%square-icon{
+  width: 48px;
+  height: 48px;
+  flex: 0 0 48px;
+  background-color: var(--tui-background-accent-3);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  border-radius: 12px;
+  color: var(--tui-text-positive);
+}
+
 
 
 

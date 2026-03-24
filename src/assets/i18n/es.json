@@ -35,6 +35,21 @@
       "FEATURE_2_DESC": "Deja que nuestro planificador impulsado por IA te sugiera joyas ocultas, optimice tus rutas diarias y encuentre lugares únicos.",
       "FEATURE_3_TITLE": "Gestión de grupos",
       "FEATURE_3_DESC": "Centraliza vuelos, hoteles y división de gastos en un solo panel. Olvida las hojas de cálculo desordenadas."
+    },
+    "CREATE_TRIP": {
+      "INFO_TITLE": "Planea tu próxima aventura",
+      "INFO_DESCRIPTION": "Añade el donde y el cuando y deja que la IA haga el itinerario por ti.",
+      "FEATURE_1_TITLE": "Facil e intuitivo",
+      "FEATURE_1_DESC": "Crea tu viaje en minutos con una interfaz fácil de usar, sin necesidad de experiencia previa.",
+      "FEATURE_2_TITLE": "Asistente de IA",
+      "FEATURE_2_DESC": "Ajusta tu itinerario con sugerencias personalizadas",
+      "FEATURE_3_TITLE": "Colaboración sin esfuerzo",
+      "FEATURE_3_DESC": "Comparte tu viaje con amigos y planificad el viaje de vuestros sueños juntos",
+      "TRIP_DETAILS": "Detalles del viaje",
+      "LOCATION_LABEL": "Donde quieres ir ?",
+      "DESCRIPTION_LABEL": "Añade una descripción para tu viaje",
+      "DATE_LABEL": "Cuando quieres ir ?",
+      "CREATE_BUTTON": "Crear viaje"
     }
   },
   "COMMON": {
@@ -45,7 +60,10 @@
       "PASSWORD_MIN_LENGTH": "La contraseña debe tener al menos 8 caracteres",
       "PASSWORDS_DO_NOT_MATCH": "Las contraseñas no coinciden",
       "USERNAME_REQUIRED": "El nombre de usuario es obligatorio",
-      "LOGIN_FAILED": "Email o contraseña incorrectos"
+      "LOGIN_FAILED": "Email o contraseña incorrectos",
+      "TITLE_REQUIRED": "El título es obligatorio",
+      "TITLE_MAX_LENGTH": "El título no puede tener más de 50 caracteres",
+      "DESCRIPTION_MAX_LENGTH": "La descripción no puede tener más de 200 caracteres"
     }
   }
 }
