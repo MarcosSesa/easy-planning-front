@@ -12,6 +12,7 @@
   box-sizing: border-box;
   background-image: url("/assets/img/create-trip-background.jpg");
 
+
 }
 
 .info {
@@ -97,7 +98,7 @@
   &__form {
     display: flex;
     flex-direction: column;
-    gap: 1rem;
+    gap: 1.5rem;
 
 
     &__field {
@@ -105,15 +106,39 @@
       flex-direction: column;
       gap: 0.5rem;
 
+
       &__label {
-        font-size: 14px;
-        color: var(--tui-text-tertiary);
+        font-weight: 500;
+        color: var(--tui-text-primary);
+      }
+
+      &__calendar {
+        font-size: 1rem;
       }
 
       tui-textfield {
         @extend %tui-textField;
-      }
 
+        textarea {
+          --t-shadow: none;
+          caret-color: var(--tui-text-primary);
+          outline-color: transparent;
+          font-size: 1rem;
+        }
+
+        textarea:hover {
+          box-shadow: none
+        }
+
+        textarea::placeholder {
+          color: var(--tui-text-disabled);
+          font-size: 1rem;
+        }
+
+        textarea:focus::placeholder {
+          color: var(--tui-text-disabled);
+        }
+      }
     }
 
     &__button {

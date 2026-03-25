@@ -3,7 +3,8 @@ import { ApplicationConfig, provideBrowserGlobalErrorListeners } from '@angular/
 import { provideRouter } from '@angular/router';
 
 import { routes } from './app.routes';
-import { provideHttpClient } from '@angular/common/http';
+import { provideHttpClient, withInterceptors } from '@angular/common/http';
+import { authInterceptor } from 'app/domain/interceptors/auth.interceptor';
 import { provideTranslateService } from '@ngx-translate/core';
 import { provideTranslateHttpLoader } from '@ngx-translate/http-loader';
 
@@ -12,7 +13,7 @@ export const appConfig: ApplicationConfig = {
     provideBrowserGlobalErrorListeners(),
     provideRouter(routes),
     provideEventPlugins(),
-    provideHttpClient(),
+    provideHttpClient(withInterceptors([authInterceptor])),
     provideTranslateService({
       loader: provideTranslateHttpLoader({
         prefix: '/assets/i18n/',

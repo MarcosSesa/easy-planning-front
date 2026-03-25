@@ -1,4 +1,4 @@
-import { ChangeDetectionStrategy, Component, inject, Type } from '@angular/core';
+import { ChangeDetectionStrategy, Component, inject, Signal, Type } from '@angular/core';
 import { TuiAlertService, TuiButton, TuiDialogService, TuiIcon } from '@taiga-ui/core';
 import { NgOptimizedImage } from '@angular/common';
 import { TranslatePipe } from '@ngx-translate/core';
@@ -9,7 +9,7 @@ import { TuiAvatar } from '@taiga-ui/kit';
 import { PolymorpheusComponent } from '@taiga-ui/polymorpheus';
 import { LoginFormComponent } from 'app/presentation/components/header/components/login-form/login-form.component';
 import { RegisterFormComponent } from 'app/presentation/components/header/components/register-form/register-form.component';
-import { switchMap } from 'rxjs/operators';
+import { filter, map, switchMap } from 'rxjs/operators';
 
 @Component({
   selector: 'app-header',
@@ -25,10 +25,18 @@ export class HeaderComponent {
 
   readonly isLoggedIn = toSignal(this.#authUseCase.isLogged$);
 
-  readonly usernameInitials = this.#authUseCase.tokenClaims?.username
-    ?.split(' ')
-    .map((n) => n.charAt(0).toUpperCase())
-    .join('');
+  readonly usernameInitials: Signal<string> = toSignal(
+    this.#authUseCase.tokenClaims$.pipe(
+      filter(Boolean),
+      map((t) =>
+        t.username
+          ?.split(' ')
+          .map((n) => n.charAt(0).toUpperCase())
+          .join(''),
+      ),
+    ),
+    { initialValue: '' },
+  );
 
   protected logout() {
     this.#authUseCase.logout();

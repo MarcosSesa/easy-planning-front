@@ -16,8 +16,10 @@ export class AuthUseCase {
   readonly #router = inject(Router);
 
   readonly #isLogged = new BehaviorSubject<boolean>(Boolean(this.token));
+  readonly #tokenClaims = new BehaviorSubject(this.tokenClaims);
 
   isLogged$ = this.#isLogged.asObservable();
+  tokenClaims$ = this.#tokenClaims.asObservable();
   isLogged = this.#isLogged.getValue();
 
   get token() {

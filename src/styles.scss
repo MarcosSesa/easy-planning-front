@@ -4,12 +4,14 @@
   //TEXT
 
   --tui-text-primary: #0F172A;
-  --tui-text-secondary: #FFFFFF;
+  --tui-text-secondary: #64748B;
   --tui-text-tertiary: #64748B;
   --tui-text-disabled: #94A3B8;
   --tui-text-negative: #E00B41;
   --tui-text-positive: #E00B41;
   --tui-text-link: #3B82F6;
+  --tui-text-action: #E00B41;
+
 
   // BACKGROUNDS
 
@@ -31,7 +33,6 @@
   --tui-background-accent-3: rgba(255, 90, 95, 0.11);
 
 
-
 }
 
 html, body {
@@ -46,8 +47,6 @@ body {
 }
 
 
-
-
 //CUSTOM COMMON CLASSES
 
 .form-field-error {
@@ -58,30 +57,13 @@ body {
 %tui-textField {
   width: 100%;
   border: solid 1px var(--tui-background-neutral-2);
-
-  textarea {
-    --t-shadow: none;
-    caret-color: var(--tui-text-primary);
-    outline-color: transparent;
-  }
-
-  textarea:hover {
-    box-shadow: none
-  }
-
-  textarea::placeholder {
-    color: var(--tui-text-disabled);
-    font-size: 1rem;
-  }
-
-  textarea:focus::placeholder {
-    color: var(--tui-text-disabled);
-  }
+  --tui-status-negative: var(--tui-background-neutral-2);
 
   input {
     --t-shadow: none;
     caret-color: var(--tui-text-primary);
     outline-color: transparent;
+    font-size: 1rem;
   }
 
   input:hover {
@@ -105,7 +87,7 @@ body {
   gap: 0.5rem;
 }
 
-%square-icon{
+%square-icon {
   width: 48px;
   height: 48px;
   flex: 0 0 48px;

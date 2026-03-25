@@ -49,7 +49,8 @@
       "LOCATION_LABEL": "Donde quieres ir ?",
       "DESCRIPTION_LABEL": "Añade una descripción para tu viaje",
       "DATE_LABEL": "Cuando quieres ir ?",
-      "CREATE_BUTTON": "Crear viaje"
+      "CREATE_BUTTON": "Crear viaje",
+      "SUCCESS_MESSAGE": "¡Viaje creado con éxito! Prepárate para una aventura inolvidable."
     }
   },
   "COMMON": {
@@ -63,7 +64,9 @@
       "LOGIN_FAILED": "Email o contraseña incorrectos",
       "TITLE_REQUIRED": "El título es obligatorio",
       "TITLE_MAX_LENGTH": "El título no puede tener más de 50 caracteres",
-      "DESCRIPTION_MAX_LENGTH": "La descripción no puede tener más de 200 caracteres"
+      "DESCRIPTION_MAX_LENGTH": "La descripción no puede tener más de 200 caracteres",
+      "LOCATION_REQUIRED": "La ubicación es obligatoria",
+      "DATE_RANGE_REQUIRED": "El rango de fechas es obligatorio"
     }
   }
 }

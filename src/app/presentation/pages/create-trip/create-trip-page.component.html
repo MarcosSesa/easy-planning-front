@@ -38,54 +38,60 @@
     <tui-icon icon="@tui.palette" />
     <span class="form-container__header__title">{{ 'PAGES.CREATE_TRIP.TRIP_DETAILS' | translate }}</span>
   </div>
-  <form class="form-container__form">
+  <form class="form-container__form" (submit)="onSubmit()">
 
     <div class="form-container__form__field">
-      @let invalidTitle = createTripForm.title().invalid() && createTripForm.title().touched();
       <span class="form-container__form__field__label">{{ "PAGES.CREATE_TRIP.LOCATION_LABEL" | translate }}</span>
       <tui-textfield [tuiTextfieldSize]="'m'">
-        <input [formField]="createTripForm.title" placeholder="Marcos" tuiTextfield />
+        <input [formControl]="createTripForm.controls.location" placeholder="Valencia, Spain" tuiTextfield />
       </tui-textfield>
-      @if (invalidTitle) {
+      @if (createTripForm.controls.location.touched && createTripForm.controls.location.errors) {
         <div class="form-field-error">
-          @for (error of createTripForm.title().errors(); track error.kind) {
-            <span>{{ error.message | translate }}</span>
+          @if (createTripForm.controls.location.errors['required']) {
+            <span>{{ 'COMMON.VALIDATORS.LOCATION_REQUIRED' | translate }}</span>
+          }
+          @if (createTripForm.controls.location.errors['maxlength']) {
+            <span>{{ 'COMMON.VALIDATORS.TITLE_MAX_LENGTH' | translate: { count: 50 } }}</span>
           }
         </div>
       }
     </div>
 
     <div class="form-container__form__field">
-      @let invalidDescription = createTripForm.description().invalid() && createTripForm.description().touched();
       <span class="form-container__form__field__label">{{ "PAGES.CREATE_TRIP.DESCRIPTION_LABEL" | translate }}</span>
       <tui-textfield [tuiTextfieldSize]="'m'">
-        <textarea [formField]="createTripForm.description" placeholder="Placeholder" tuiTextarea></textarea>
+        <textarea [formControl]="createTripForm.controls.description" [limit]="200" [max]="6" [min]="3"
+                  tuiTextarea placeholder="Descripción increiblemente chula sobre Valencia"></textarea>
       </tui-textfield>
-      @if (invalidDescription) {
+      @if (createTripForm.controls.description.touched && createTripForm.controls.description.errors) {
         <div class="form-field-error">
-          @for (error of createTripForm.description().errors(); track error.kind) {
-            <span>{{ error.message | translate }}</span>
+          @if (createTripForm.controls.description.errors['maxlength']) {
+            <span>{{ 'COMMON.VALIDATORS.DESCRIPTION_MAX_LENGTH' | translate: { count: 200 } }}</span>
           }
         </div>
       }
     </div>
 
     <div class="form-container__form__field">
-      @let invalidDate = createTripForm.date().invalid() && createTripForm.date().touched();
       <span class="form-container__form__field__label">{{ "PAGES.CREATE_TRIP.DATE_LABEL" | translate }}</span>
-      <tui-textfield [tuiTextfieldSize]="'m'">
-        <input [formField]="createTripForm.date" placeholder="Marcos" tuiTextfield />
+      <tui-textfield class="form-container__form__field__calendar" [tuiTextfieldCleaner]="false"
+                     [tuiTextfieldSize]="'m'">
+        <input tuiInputDateRange [formControl]="createTripForm.controls.dateRange"
+               placeholder="DD-MM-YYYY - DD-MM-YYYY" />
+        <tui-calendar-range *tuiTextfieldDropdown />
       </tui-textfield>
-      @if (invalidDate) {
+      @if (createTripForm.controls.dateRange.touched && createTripForm.controls.dateRange.errors) {
         <div class="form-field-error">
-          @for (error of createTripForm.date().errors(); track error.kind) {
-            <span>{{ error.message | translate }}</span>
+          @if (createTripForm.controls.dateRange.errors['required']) {
+            <span>{{ 'COMMON.VALIDATORS.DATE_RANGE_REQUIRED' | translate }}</span>
           }
         </div>
       }
     </div>
 
-    <button type="submit" class="form-container__form__button" size="m" tuiButton>
+
+    <button [disabled]="createTripForm.invalid" type="submit" class="form__button" size="m"
+            tuiButton>
       <span>{{ "PAGES.CREATE_TRIP.CREATE_BUTTON" | translate }}</span>
     </button>
   </form>
