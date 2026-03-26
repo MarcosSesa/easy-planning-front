@@ -18,6 +18,14 @@ export const routes: Routes = [
       ),
   },
   {
+    path: 'my-trips',
+    canActivate: [authGuard],
+    loadComponent: () =>
+      import('./presentation/pages/my-trips/my-trips-page.component').then(
+        (m) => m.MyTripsPageComponent,
+      ),
+  },
+  {
     path: '**',
     loadComponent: () =>
       import('./presentation/pages/landing/landing-page.component').then(

@@ -4,12 +4,14 @@
 </div>
 <div class="header-actions">
   @if (isLoggedIn()) {
-    <span class="header-actions__nav-element">{{ 'COMPONENTS.HEADER.MY_TRIPS' | translate }}</span>
+    <span class="header-actions__nav-element"
+          routerLink="my-trips">{{ 'COMPONENTS.HEADER.MY_TRIPS' | translate }}</span>
     <tui-icon class="header-actions__icon" icon="@tui.bell" />
     <tui-icon (click)="logout()" class="header-actions__icon" icon="@tui.log-out" />
     <tui-avatar [src]="usernameInitials()" class="header-actions__user-img" />
   } @else {
-    <span class="header-actions__nav-element" (click)="onClick('register')">{{ 'COMPONENTS.HEADER.REGISTER' | translate }}</span>
+    <span class="header-actions__nav-element"
+          (click)="onClick('register')">{{ 'COMPONENTS.HEADER.REGISTER' | translate }}</span>
     <button (click)="onClick('login')" class="header-actions__login" size="m"
             tuiButton>{{ 'COMPONENTS.HEADER.LOGIN' | translate }}
     </button>

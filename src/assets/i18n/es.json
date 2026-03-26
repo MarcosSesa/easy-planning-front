@@ -51,6 +51,19 @@
       "DATE_LABEL": "Cuando quieres ir ?",
       "CREATE_BUTTON": "Crear viaje",
       "SUCCESS_MESSAGE": "¡Viaje creado con éxito! Prepárate para una aventura inolvidable."
+    },
+    "MY_TRIPS": {
+      "TITLE": "Mis Viajes",
+      "SUBTITLE": "Gestiona tus proximos viajes",
+      "INVITATIONS_TITLE": "Invitaciones pendientes",
+      "ACCEPT": "Aceptar",
+      "DECLINE": "Rechazar",
+      "TABS": {
+        "ALL": "Todos",
+        "UPCOMING": "Proximos",
+        "IN_PROGRESS": "En curso",
+        "PAST": "Pasados"
+      }
     }
   },
   "COMMON": {
