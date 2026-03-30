@@ -1,11 +1,12 @@
 :host {
   display: flex;
   height: 75px;
-  padding: 0 2.5rem;
+  padding: 0 1rem;
   border-bottom: 1px solid var(--tui-background-neutral-2);
   background-color: white;
   align-items: center;
   justify-content: space-between;
+
 }
 
 .header-title {

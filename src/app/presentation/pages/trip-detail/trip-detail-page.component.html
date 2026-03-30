@@ -1,0 +1,37 @@
+<div class="side-bar">
+  @let tripData = trip();
+  @if (tripData) {
+    <div style="display: flex; align-items: center; gap: 8px;justify-content: space-between;">
+      <span class="side-bar__trip-title">{{ tripData.title }}</span>
+      <div style="display: flex;gap: 8px;">
+        <tui-icon icon="@tui.pencil" />
+        <tui-icon (click)="deleteTrip(tripData.id)" icon="@tui.trash-2" />
+      </div>
+    </div>
+    <span class="side-bar__trip-subtitle">{{ tripData.description }}</span>
+    <span class="side-bar__trip-date">
+          <span class="side-bar__trip-date-label">Del</span>
+          <span class="side-bar__trip-date-value">{{ tripData.startDate | date: 'd MMMM' }}</span>
+          <span class="side-bar__trip-date-label">al</span>
+          <span class="side-bar__trip-date-value">{{ tripData.endDate | date: 'd MMMM' }}</span>
+  </span>
+  }
+  <hr>
+  <div class="side-bar__day-container">
+    @let selectedDay = day();
+    @for (day of tripDays(); track day.id; let index = $index) {
+      <div class="side-bar__day-container__day" [class.selected]="selectedDay?.id === day.id"
+           (click)="setSelectedDay(day.id)">
+        <div class="side-bar__day-container__day__number">
+          <span>Día</span>
+          <span>{{ index + 1 }}</span>
+        </div>
+        <span class="side-bar__day-container__day__date">{{ day.date | date: 'EEEE, d MMMM' | titlecase }}</span>
+      </div>
+    }
+  </div>
+
+</div>
+<div class="main-container">
+
+</div>

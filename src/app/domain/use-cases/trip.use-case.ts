@@ -1,7 +1,7 @@
 import { inject, Injectable } from '@angular/core';
 import { TripRepository } from 'app/data/repositories/trip.repository';
 import { CreateTripFormInterface } from 'app/entities/interfaces/create-trip.interface';
-import { BehaviorSubject, map, switchMap } from 'rxjs';
+import { BehaviorSubject, filter, map, switchMap } from 'rxjs';
 import { TripStatus } from 'app/presentation/pages/my-trips/my-trips-page.component';
 
 @Injectable({
@@ -11,10 +11,17 @@ export class TripUseCase {
   readonly #tripRepository = inject(TripRepository);
 
   readonly #tripStatusFilter = new BehaviorSubject<TripStatus | null>(null);
+  readonly #tripId = new BehaviorSubject<string | null>(null);
 
   userTrips$ = this.#tripStatusFilter.asObservable().pipe(
     switchMap((status) => this.#tripRepository.getUserTrips(status)),
     map((trips) => trips.data),
+  );
+
+  tripById$ = this.#tripId.asObservable().pipe(
+    filter(Boolean),
+    switchMap((tripId) => this.#tripRepository.getTripById(tripId)),
+    map((trip) => trip.data),
   );
 
   createTrip(trip: CreateTripFormInterface) {
@@ -33,7 +40,15 @@ export class TripUseCase {
     });
   }
 
+  deleteTrip(tripId: string) {
+    return this.#tripRepository.deleteTrip(tripId);
+  }
+
   setTipStatusFilter(status: TripStatus | null) {
     this.#tripStatusFilter.next(status);
+  }
+
+  setTripId(tripId: string) {
+    this.#tripId.next(tripId);
   }
 }

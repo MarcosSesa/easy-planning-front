@@ -1,7 +1,13 @@
 import { ActivityDto } from 'app/data/dto/activity/activity.dto';
 
-export interface TripDaysResponseDto {
-  activities: ActivityDto[];
+export interface TripDaysByTripIdResponseDto {
+  id: string;
+  date: string; // DATE FORMAT
+  tripId: string;
+}
+
+export interface TripDaysByIdResponseDto {
+  trip: ActivityDto[];
   id: string;
   date: string; // DATE FORMAT
   tripId: string;

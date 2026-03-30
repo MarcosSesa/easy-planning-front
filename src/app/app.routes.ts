@@ -26,6 +26,14 @@ export const routes: Routes = [
       ),
   },
   {
+    path: 'trip/:tripId',
+    canActivate: [authGuard],
+    loadComponent: () =>
+      import('./presentation/pages/trip-detail/trip-detail-page.component').then(
+        (m) => m.TripDetailPageComponent,
+      ),
+  },
+  {
     path: '**',
     loadComponent: () =>
       import('./presentation/pages/landing/landing-page.component').then(

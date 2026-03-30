@@ -52,7 +52,7 @@
       <span>{{ 'PAGES.LANDING.ADD_TRIP' | translate }}</span>
     </div>
     @for (trip of trips; track trip.id) {
-      <div class="trip-list__item">
+      <div class="trip-list__item" [routerLink]="['/trip', trip.id]">
         <span class="trip-list__item__name">{{ trip.title }}</span>
         <span class="trip-list__item__description"> {{ trip.description }}</span>
         <span

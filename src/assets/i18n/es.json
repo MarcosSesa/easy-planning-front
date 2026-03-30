@@ -12,6 +12,8 @@
       "REGISTER_SUBTITLE": "Organiza tu próxima aventura con el equipo.",
       "MY_TRIPS": "Mis Viajes",
       "LOGOUT": "Cerrar Sesión",
+      "LOGOUT_CANCEL": "Cancelar",
+      "LOGOUT_CONFIRM_LABEL": "Estas seguro que quieres cerrar sesión ?",
       "EMAIL_LABEL": "Email",
       "USERNAME_LABEL": "Nombre",
       "PASSWORD_LABEL": "Contraseña",

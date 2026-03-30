@@ -21,6 +21,7 @@ import {
 import { TuiDayRange } from '@taiga-ui/cdk/date-time';
 import { TripUseCase } from 'app/domain/use-cases/trip.use-case';
 import { CreateTripFormInterface } from 'app/entities/interfaces/create-trip.interface';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-create-trip',
@@ -48,6 +49,7 @@ export class CreateTripPageComponent {
   readonly #tripUseCase = inject(TripUseCase);
   readonly #alertService = inject(TuiAlertService);
   readonly #translateService = inject(TranslateService);
+  readonly #router = inject(Router);
 
   protected createTripForm = new FormGroup({
     location: new FormControl('', [Validators.required, Validators.maxLength(50)]),
@@ -60,14 +62,16 @@ export class CreateTripPageComponent {
       // We can assert type because the previous check and the validations
       const tripInfo = this.createTripForm.value as CreateTripFormInterface;
       this.#tripUseCase.createTrip(tripInfo).subscribe({
-        next: (_res) =>
+        next: (_res) => {
           this.#alertService
             .open('', {
               label: this.#translateService.instant('PAGES.CREATE_TRIP.SUCCESS_MESSAGE'),
               autoClose: 3000,
               appearance: 'positive',
             })
-            .subscribe(),
+            .subscribe();
+          this.#router.navigate(['/my-trips']);
+        },
         error: (err) =>
           this.#alertService
             .open('', {

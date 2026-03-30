@@ -17,10 +17,18 @@ export class TripRepository {
     return this.#httpClient.post<BaseResponse<TripDto>>(`${this.#url}/trip/create`, body);
   }
 
+  deleteTrip(tripId: string) {
+    return this.#httpClient.delete(`${this.#url}/trip/delete/${tripId}`);
+  }
+
   getUserTrips(status: TripStatus | null) {
     const params = status === null ? undefined : { filter: status };
     return this.#httpClient.get<BaseResponse<TripDto[]>>(`${this.#url}/trip/trips`, {
       params,
     });
+  }
+
+  getTripById(tripId: string) {
+    return this.#httpClient.get<BaseResponse<TripDto>>(`${this.#url}/trip/${tripId}`);
   }
 }
