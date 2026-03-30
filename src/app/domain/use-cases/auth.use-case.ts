@@ -1,12 +1,12 @@
 import { inject, Injectable } from '@angular/core';
 import { BehaviorSubject, tap } from 'rxjs';
 import { jwtDecode } from 'jwt-decode';
-import { LoginUserBodyInterface } from 'app/entities/interfaces/login.interface';
-import { AuthRepository } from 'app/data/repositories/auth/auth.repository';
-import { RegisterUserBodyInterface } from 'app/entities/interfaces/register.interface';
+import { AuthRepository } from 'app/data/repositories/auth.repository';
 import { Router } from '@angular/router';
 import { JwtDecodedInterface } from 'app/entities/interfaces/jwt-decoded.interface';
-import { map } from 'rxjs/operators';
+import { filter, map } from 'rxjs/operators';
+import { LoginUserBodyDto } from 'app/data/dto/user/login-user.dto';
+import { RegisterUserBodyDto } from 'app/data/dto/user/register-user.dto';
 
 @Injectable({
   providedIn: 'root',
@@ -20,6 +20,10 @@ export class AuthUseCase {
 
   isLogged$ = this.#isLogged.asObservable();
   tokenClaims$ = this.#tokenClaims.asObservable();
+  userId$ = this.#tokenClaims.pipe(
+    filter(Boolean),
+    map((user) => user.userId),
+  );
   isLogged = this.#isLogged.getValue();
 
   get token() {
@@ -36,14 +40,14 @@ export class AuthUseCase {
     this.#router.navigate(['/']);
   }
 
-  login(user: LoginUserBodyInterface) {
+  login(user: LoginUserBodyDto) {
     return this.#authRepository.getUserLogged(user).pipe(
       tap((response) => this.#setToken(response.data)),
       map((response) => jwtDecode<JwtDecodedInterface>(response.data)),
     );
   }
 
-  register(user: RegisterUserBodyInterface) {
+  register(user: RegisterUserBodyDto) {
     return this.#authRepository.getUserRegister(user).pipe(
       tap((response) => this.#setToken(response.data)),
       map((response) => jwtDecode<JwtDecodedInterface>(response.data)),
@@ -54,6 +58,7 @@ export class AuthUseCase {
     if (token) {
       localStorage.setItem('token', token);
       this.#isLogged.next(true);
+      this.#tokenClaims.next(jwtDecode<JwtDecodedInterface>(token));
     } else {
       localStorage.removeItem('token');
     }

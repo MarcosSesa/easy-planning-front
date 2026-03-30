@@ -63,7 +63,9 @@
         "UPCOMING": "Proximos",
         "IN_PROGRESS": "En curso",
         "PAST": "Pasados"
-      }
+      },
+      "FROM_LABEL": "Del",
+      "TO_LABEL": "al"
     }
   },
   "COMMON": {

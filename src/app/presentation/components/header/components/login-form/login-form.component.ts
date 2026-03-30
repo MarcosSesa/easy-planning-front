@@ -12,7 +12,7 @@ import {
 import { TranslatePipe, TranslateService } from '@ngx-translate/core';
 import { firstValueFrom } from 'rxjs';
 import { TuiPassword } from '@taiga-ui/kit';
-import { AuthUseCase } from 'app/domain/use-cases/auth/auth.use-case';
+import { AuthUseCase } from 'app/domain/use-cases/auth.use-case';
 import { injectContext } from '@taiga-ui/polymorpheus';
 
 interface LoginFormInterface {

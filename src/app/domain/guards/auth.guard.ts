@@ -1,6 +1,6 @@
 import { CanActivateFn, Router } from '@angular/router';
 import { inject } from '@angular/core';
-import { AuthUseCase } from 'app/domain/use-cases/auth/auth.use-case';
+import { AuthUseCase } from 'app/domain/use-cases/auth.use-case';
 
 export const authGuard: CanActivateFn = () => {
   const authUseCase = inject(AuthUseCase);

@@ -1,24 +1,24 @@
-@let requests = invitations;
-@if (requests) {
+@let requests = invitations();
+@if (requests && requests.length > 0) {
   <div class="invitations">
     <span class="invitations__title">{{ 'PAGES.MY_TRIPS.INVITATIONS_TITLE' | translate }}</span>
     <div class="invitations__list">
-      @for (invitation of requests; track invitation) {
+      @for (invitation of requests; track invitation.id) {
         <div class="invitations__list__item">
-          <span class="invitations__list__item__time">HACE 2 DIAS</span>
-          <span class="invitations__list__item__name">VERANO EN KYOTO</span>
-          <span class="invitations__list__item__date">Jul 15 - Jul 22 • Invited by Sarah</span>
+          <span class="invitations__list__item__time">{{ invitation.invitedAt | date: 'mediumDate' }}</span>
+          <span class="invitations__list__item__name">{{ invitation.trip.title }}</span>
+          <span class="invitations__list__item__date">{{ invitation.trip.startDate | date }}
+            - {{ invitation.trip.endDate | date }}</span>
           <div class="invitations__list__item__actions">
-            <button size="s" tuiButton type="button" >
+            <button size="s" tuiButton type="button" (click)="resolveInvitation(invitation.id, 'ACCEPTED')">
               {{ 'PAGES.MY_TRIPS.ACCEPT' | translate }}
             </button>
-            <button size="s" tuiButton type="button">
+            <button size="s" tuiButton type="button" (click)="resolveInvitation(invitation.id, 'REJECTED')">
               {{ 'PAGES.MY_TRIPS.DECLINE' | translate }}
             </button>
           </div>
         </div>
       }
-
     </div>
   </div>
 }
@@ -29,18 +29,47 @@
     <span class="trip-header__column__title">{{ 'PAGES.MY_TRIPS.TITLE' | translate }}</span>
     <span class="trip-header__column__subtitle">{{ 'PAGES.MY_TRIPS.SUBTITLE' | translate }}</span>
   </div>
-  <button routerLink="/create-trip" class="trip-header__add-trip" size="m" tuiButton type="button">
-    <tui-icon icon="@tui.badge-plus" [style.height.rem]="2" />
-    <span>{{ 'PAGES.LANDING.ADD_TRIP' | translate }}</span>
-  </button>
+
 </div>
 
 
 <div class="tabs">
-  <tui-tabs>
+  <tui-tabs [(activeItemIndex)]="activeIndex">
     <button tuiTab type="button">{{ 'PAGES.MY_TRIPS.TABS.ALL' | translate }}</button>
     <button tuiTab type="button">{{ 'PAGES.MY_TRIPS.TABS.UPCOMING' | translate }}</button>
     <button tuiTab type="button">{{ 'PAGES.MY_TRIPS.TABS.IN_PROGRESS' | translate }}</button>
     <button tuiTab type="button">{{ 'PAGES.MY_TRIPS.TABS.PAST' | translate }}</button>
   </tui-tabs>
+</div>
+
+<div class="trip-list">
+  @let trips = userTrips();
+  @if (trips) {
+    <div routerLink="/create-trip"  class="trip-list__item-placeholder">
+      <div class="trip-list__item-placeholder__icon">
+        <tui-icon icon="@tui.plus" [style.height.rem]="2" />
+      </div>
+      <span>{{ 'PAGES.LANDING.ADD_TRIP' | translate }}</span>
+    </div>
+    @for (trip of trips; track trip.id) {
+      <div class="trip-list__item">
+        <span class="trip-list__item__name">{{ trip.title }}</span>
+        <span class="trip-list__item__description"> {{ trip.description }}</span>
+        <span
+          class="trip-list__item__date">
+          <span class="trip-list__item__date-label">{{ 'PAGES.MY_TRIPS.FROM_LABEL' | translate }}</span>
+          <span class="trip-list__item__date-value">{{ trip.startDate | date: 'd/M/yyyy' }}</span>
+          <span class="trip-list__item__date-label">{{ 'PAGES.MY_TRIPS.TO_LABEL' | translate }}</span>
+          <span class="trip-list__item__date-value">{{ trip.endDate | date: 'd/M/yyyy' }}</span>
+        </span>
+        @if (trip.createdById === userId()) {
+          <tui-chip class="trip-list__item__is-admin" appearance="positive">Admin</tui-chip>
+        }
+      </div>
+    }
+  } @else {
+    <div class="trips__empty">
+      <tui-icon icon="@tui.warning" [style.height.rem]="4" />
+    </div>
+  }
 </div>

@@ -2,7 +2,7 @@ import { ChangeDetectionStrategy, Component, inject, Signal, Type } from '@angul
 import { TuiAlertService, TuiButton, TuiDialogService, TuiIcon } from '@taiga-ui/core';
 import { NgOptimizedImage } from '@angular/common';
 import { TranslatePipe } from '@ngx-translate/core';
-import { AuthUseCase } from 'app/domain/use-cases/auth/auth.use-case';
+import { AuthUseCase } from 'app/domain/use-cases/auth.use-case';
 import { toSignal } from '@angular/core/rxjs-interop';
 import { RouterLink } from '@angular/router';
 import { TuiAvatar } from '@taiga-ui/kit';

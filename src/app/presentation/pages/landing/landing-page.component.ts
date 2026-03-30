@@ -1,7 +1,7 @@
 import { ChangeDetectionStrategy, Component, inject } from '@angular/core';
 import { TranslatePipe } from '@ngx-translate/core';
 import { TuiButton, TuiIcon } from '@taiga-ui/core';
-import { AuthUseCase } from 'app/domain/use-cases/auth/auth.use-case';
+import { AuthUseCase } from 'app/domain/use-cases/auth.use-case';
 import { toSignal } from '@angular/core/rxjs-interop';
 import { RouterLink } from '@angular/router';
 

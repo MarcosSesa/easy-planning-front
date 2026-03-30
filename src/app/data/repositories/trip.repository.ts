@@ -4,6 +4,7 @@ import { environment } from 'environment';
 import { UpdateCreateTripBodyDto } from 'app/data/dto/trip/update-create-trip.dto';
 import { BaseResponse } from 'app/data/dto/common/base-response.dto';
 import { TripDto } from 'app/data/dto/trip/trip.dto';
+import { TripStatus } from 'app/presentation/pages/my-trips/my-trips-page.component';
 
 @Injectable({
   providedIn: 'root',
@@ -14,5 +15,12 @@ export class TripRepository {
 
   createTrip(body: UpdateCreateTripBodyDto) {
     return this.#httpClient.post<BaseResponse<TripDto>>(`${this.#url}/trip/create`, body);
+  }
+
+  getUserTrips(status: TripStatus | null) {
+    const params = status === null ? undefined : { filter: status };
+    return this.#httpClient.get<BaseResponse<TripDto[]>>(`${this.#url}/trip/trips`, {
+      params,
+    });
   }
 }

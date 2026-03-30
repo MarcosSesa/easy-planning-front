@@ -19,7 +19,7 @@ import {
   Validators,
 } from '@angular/forms';
 import { TuiDayRange } from '@taiga-ui/cdk/date-time';
-import { TripUseCase } from 'app/domain/use-cases/trip/trip.use-case';
+import { TripUseCase } from 'app/domain/use-cases/trip.use-case';
 import { CreateTripFormInterface } from 'app/entities/interfaces/create-trip.interface';
 
 @Component({

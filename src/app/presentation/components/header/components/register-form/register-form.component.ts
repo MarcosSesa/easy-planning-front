@@ -12,7 +12,7 @@ import { matchField } from 'app/presentation/utils/validators/match-fields.valid
 import { TuiButton, TuiDialogContext, TuiIcon, TuiLoader, TuiTextfield } from '@taiga-ui/core';
 import { TranslatePipe, TranslateService } from '@ngx-translate/core';
 import { TuiPassword } from '@taiga-ui/kit';
-import { AuthUseCase } from 'app/domain/use-cases/auth/auth.use-case';
+import { AuthUseCase } from 'app/domain/use-cases/auth.use-case';
 import { firstValueFrom } from 'rxjs';
 import { injectContext } from '@taiga-ui/polymorpheus';
 
