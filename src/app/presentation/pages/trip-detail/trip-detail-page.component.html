@@ -4,7 +4,7 @@
     <div style="display: flex; align-items: center; gap: 8px;justify-content: space-between;">
       <span class="side-bar__trip-title">{{ tripData.title }}</span>
       <div style="display: flex;gap: 8px;">
-        <tui-icon icon="@tui.pencil" />
+        <tui-icon icon="@tui.pencil" (click)="editTrip(tripData)" />
         <tui-icon (click)="deleteTrip(tripData.id)" icon="@tui.trash-2" />
       </div>
     </div>

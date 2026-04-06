@@ -1,0 +1,61 @@
+<div class="form-container">
+  <div class="form-container__header">
+    <tui-icon icon="@tui.palette" />
+    <span class="form-container__header__title">{{ headerKey() | translate }}</span>
+  </div>
+
+  <form class="form-container__form" (submit)="onSubmit($event)">
+    <div class="form-container__form__field">
+      <span class="form-container__form__field__label">{{ 'PAGES.CREATE_TRIP.LOCATION_LABEL' | translate }}</span>
+      <tui-textfield [tuiTextfieldSize]="'m'">
+        <input [formControl]="tripForm.controls.location" placeholder="Valencia, Spain" tuiTextfield />
+      </tui-textfield>
+      @if (tripForm.controls.location.touched && tripForm.controls.location.errors) {
+        <div class="form-field-error">
+          @if (tripForm.controls.location.errors['required']) {
+            <span>{{ 'COMMON.VALIDATORS.LOCATION_REQUIRED' | translate }}</span>
+          }
+          @if (tripForm.controls.location.errors['maxlength']) {
+            <span>{{ 'COMMON.VALIDATORS.TITLE_MAX_LENGTH' | translate: { count: 50 } }}</span>
+          }
+        </div>
+      }
+    </div>
+
+    <div class="form-container__form__field">
+      <span class="form-container__form__field__label">{{ 'PAGES.CREATE_TRIP.DESCRIPTION_LABEL' | translate }}</span>
+      <tui-textfield [tuiTextfieldSize]="'m'">
+        <textarea [formControl]="tripForm.controls.description" [limit]="200" [max]="6" [min]="6" tuiTextarea
+                  placeholder="Descripción increiblemente chula sobre Valencia"></textarea>
+      </tui-textfield>
+      @if (tripForm.controls.description.touched && tripForm.controls.description.errors) {
+        <div class="form-field-error">
+          @if (tripForm.controls.description.errors['maxlength']) {
+            <span>{{ 'COMMON.VALIDATORS.DESCRIPTION_MAX_LENGTH' | translate: { count: 200 } }}</span>
+          }
+        </div>
+      }
+    </div>
+
+    <div class="form-container__form__field">
+      <span class="form-container__form__field__label">{{ 'PAGES.CREATE_TRIP.DATE_LABEL' | translate }}</span>
+      <tui-textfield class="form-container__form__field__calendar" [tuiTextfieldCleaner]="false"
+                     [tuiTextfieldSize]="'m'">
+        <input tuiInputDateRange [formControl]="tripForm.controls.dateRange" placeholder="DD-MM-YYYY - DD-MM-YYYY" />
+        <tui-calendar-range *tuiTextfieldDropdown />
+      </tui-textfield>
+      @if (tripForm.controls.dateRange.touched && tripForm.controls.dateRange.errors) {
+        <div class="form-field-error">
+          @if (tripForm.controls.dateRange.errors['required']) {
+            <span>{{ 'COMMON.VALIDATORS.DATE_RANGE_REQUIRED' | translate }}</span>
+          }
+        </div>
+      }
+    </div>
+
+    <button [disabled]="tripForm.invalid" class="form-container__form__button" size="m" tuiButton type="submit">
+      <span>{{ buttonKey() | translate }}</span>
+    </button>
+  </form>
+</div>
+

@@ -52,7 +52,9 @@
       "DESCRIPTION_LABEL": "Añade una descripción para tu viaje",
       "DATE_LABEL": "Cuando quieres ir ?",
       "CREATE_BUTTON": "Crear viaje",
-      "SUCCESS_MESSAGE": "¡Viaje creado con éxito! Prepárate para una aventura inolvidable."
+      "SUCCESS_MESSAGE": "¡Viaje creado con éxito! Prepárate para una aventura inolvidable.",
+      "TRIP_DETAILS_EDIT": "Editar detalles del viaje",
+      "UPDATE_BUTTON": "Guardar cambios"
     },
     "MY_TRIPS": {
       "TITLE": "Mis Viajes",

@@ -17,6 +17,10 @@ export class TripRepository {
     return this.#httpClient.post<BaseResponse<TripDto>>(`${this.#url}/trip/create`, body);
   }
 
+  updateTrip(tripId: string, body: UpdateCreateTripBodyDto) {
+    return this.#httpClient.put<BaseResponse<TripDto>>(`${this.#url}/trip/update/${tripId}`, body);
+  }
+
   deleteTrip(tripId: string) {
     return this.#httpClient.delete(`${this.#url}/trip/delete/${tripId}`);
   }
