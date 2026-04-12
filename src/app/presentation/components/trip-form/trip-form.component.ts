@@ -79,10 +79,12 @@ export class TripFormComponent {
       location: initial?.title ?? '',
       description: initial?.description ?? '',
       dateRange:
-        new TuiDayRange(
-          new TuiDay(startDate.getFullYear(), startDate.getMonth(), startDate.getDate()),
-          new TuiDay(endDate.getFullYear(), endDate.getMonth(), endDate.getDate()),
-        ) ?? null,
+        initial?.startDate && initial?.endDate
+          ? new TuiDayRange(
+              new TuiDay(startDate.getFullYear(), startDate.getMonth(), startDate.getDate()),
+              new TuiDay(endDate.getFullYear(), endDate.getMonth(), endDate.getDate()),
+            )
+          : null,
     });
   });
 

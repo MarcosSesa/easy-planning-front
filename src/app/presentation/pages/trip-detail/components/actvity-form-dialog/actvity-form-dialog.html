@@ -1,0 +1,117 @@
+<div class="header">
+  <tui-icon icon="@tui.badge-plus" />
+  <span class="header__title">{{ headerKey() | translate }}</span>
+</div>
+
+<form class="form" (submit)="onSubmit($event)">
+  <div class="form__field">
+    <span class="form__field__label">{{
+      'PAGES.TRIP_DETAIL.ACTIVITY_DIALOG.TITLE_LABEL' | translate
+    }}</span>
+    <tui-textfield [tuiTextfieldSize]="'m'">
+      <input
+        [formControl]="activityForm.controls.title"
+        [placeholder]="'PAGES.TRIP_DETAIL.ACTIVITY_DIALOG.PLACEHOLDER_TITLE' | translate"
+        tuiTextfield
+      />
+    </tui-textfield>
+    @if (activityForm.controls.title.touched && activityForm.controls.title.errors) {
+      <div class="form-field-error">
+        @if (activityForm.controls.title.errors['required']) {
+          <span>{{ 'COMMON.VALIDATORS.TITLE_REQUIRED' | translate }}</span>
+        }
+        @if (activityForm.controls.title.errors['maxlength']) {
+          <span>{{ 'COMMON.VALIDATORS.TITLE_MAX_LENGTH' | translate }}</span>
+        }
+      </div>
+    }
+  </div>
+
+  <div class="form__field">
+    <span class="form__field__label">{{
+      'PAGES.TRIP_DETAIL.ACTIVITY_DIALOG.DESCRIPTION_LABEL' | translate
+    }}</span>
+    <tui-textfield [tuiTextfieldSize]="'m'">
+      <textarea
+        [formControl]="activityForm.controls.description"
+        [limit]="500"
+        [max]="6"
+        [min]="3"
+        tuiTextarea
+        [placeholder]="'PAGES.TRIP_DETAIL.ACTIVITY_DIALOG.PLACEHOLDER_DESCRIPTION' | translate"
+      ></textarea>
+    </tui-textfield>
+    @if (activityForm.controls.description.touched && activityForm.controls.description.errors) {
+      <div class="form-field-error">
+        @if (activityForm.controls.description.errors['maxlength']) {
+          <span>{{ 'COMMON.VALIDATORS.DESCRIPTION_MAX_LENGTH_HIGHT' | translate }}</span>
+        }
+      </div>
+    }
+  </div>
+
+  <div class="form__field">
+    <span class="form__field__label">{{
+      'PAGES.TRIP_DETAIL.ACTIVITY_DIALOG.LOCATION_LABEL' | translate
+    }}</span>
+    <tui-textfield [tuiTextfieldSize]="'m'">
+      <input
+        [formControl]="activityForm.controls.location"
+        [placeholder]="'PAGES.TRIP_DETAIL.ACTIVITY_DIALOG.PLACEHOLDER_LOCATION' | translate"
+        tuiTextfield
+      />
+    </tui-textfield>
+    @if (activityForm.controls.location.touched && activityForm.controls.location.errors) {
+      <div class="form-field-error">
+        @if (activityForm.controls.location.errors['maxlength']) {
+          <span>{{ 'COMMON.VALIDATORS.LOCATION_MAX_LENGTH' | translate }}</span>
+        }
+      </div>
+    }
+  </div>
+
+  <div style="display: flex; gap: 1rem">
+    <div class="form__field">
+      <span class="form__field__label">{{
+        'PAGES.TRIP_DETAIL.ACTIVITY_DIALOG.START_TIME_LABEL' | translate
+      }}</span>
+      <tui-textfield [tuiTextfieldSize]="'m'">
+        <input tuiInputTime [formControl]="activityForm.controls.startTime" />
+      </tui-textfield>
+      @if (activityForm.controls.startTime.touched && activityForm.controls.startTime.errors) {
+        <div class="form-field-error">
+          @if (activityForm.controls.startTime.errors['required']) {
+            <span>{{ 'COMMON.VALIDATORS.START_TIME_REQUIRED' | translate }}</span>
+          }
+        </div>
+      }
+    </div>
+
+    <div class="form__field">
+      <span class="form__field__label">{{
+        'PAGES.TRIP_DETAIL.ACTIVITY_DIALOG.END_TIME_LABEL' | translate
+      }}</span>
+      <tui-textfield [tuiTextfieldSize]="'m'">
+        <input tuiInputTime [formControl]="activityForm.controls.endTime" />
+      </tui-textfield>
+      @if (activityForm.controls.endTime.touched && activityForm.controls.endTime.errors) {
+        <div class="form-field-error">
+          @if (activityForm.controls.endTime.errors['required']) {
+            <span>{{ 'COMMON.VALIDATORS.END_TIME_REQUIRED' | translate }}</span>
+          }
+        </div>
+      }
+      @if (activityForm.errors?.['timeRange']) {
+        <div class="form-field-error">
+          <span>{{ 'COMMON.VALIDATORS.TIME_RANGE_INVALID' | translate }}</span>
+        </div>
+      }
+    </div>
+  </div>
+
+  <div class="form__actions">
+    <button [disabled]="activityForm.invalid" class="form__button" size="m" tuiButton type="submit">
+      <span>{{ buttonKey() | translate }}</span>
+    </button>
+  </div>
+</form>

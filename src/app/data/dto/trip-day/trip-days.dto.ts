@@ -7,7 +7,7 @@ export interface TripDaysByTripIdResponseDto {
 }
 
 export interface TripDaysByIdResponseDto {
-  trip: ActivityDto[];
+  activities: ActivityDto[];
   id: string;
   date: string; // DATE FORMAT
   tripId: string;

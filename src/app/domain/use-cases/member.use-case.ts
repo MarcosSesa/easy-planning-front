@@ -15,7 +15,7 @@ export class MemberUseCase {
     .pipe(map((invitations) => invitations.data));
 
   inviteMember(member: CreateMemberBodyDto) {
-    return this.#memberRepository.createMember(member);
+    return this.#memberRepository.inviteMember(member);
   }
 
   acceptMember(memberId: string, status: AcceptMemberStatus) {

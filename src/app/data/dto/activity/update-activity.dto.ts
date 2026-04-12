@@ -1,15 +1,14 @@
-
 export interface UpdateActivityResponseDto {
   created: number;
   updated: number;
 }
 
-export interface UpdateActivityBodyDto {
-  activities: BodyActivityDto[];
+export interface UpdateActivitiesBodyDto {
+  activities: UpdateActivityDto[];
 }
 
-interface BodyActivityDto {
-  activityId: string;
+export interface UpdateActivityDto {
+  activityId?: string;
   title: string;
   description: string;
   location: string;

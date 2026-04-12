@@ -14,11 +14,18 @@ import { catchError, filter, map, switchMap, tap } from 'rxjs';
 import { PolymorpheusComponent } from '@taiga-ui/polymorpheus';
 import { TripFormComponent } from 'app/presentation/components/trip-form/trip-form.component';
 import { EditTripDialog } from './components/edit-trip-dialog/edit-trip-dialog.component';
+import {
+  ActivityFormData,
+  ActvityFormDialog,
+} from './components/actvity-form-dialog/actvity-form-dialog';
 import { CreateTripFormInterface } from 'app/entities/interfaces/create-trip.interface';
+import { ActivityDto } from 'app/data/dto/activity/activity.dto';
+import { SortActivitiesByTimePipe } from 'app/presentation/pipes/sort-activities-by-time.pipe';
+import { EncodeURIPipe } from 'app/presentation/pipes/encode-uri.pipe';
 
 @Component({
   selector: 'app-trip-detail-page.component',
-  imports: [DatePipe, TitleCasePipe, TuiIcon],
+  imports: [DatePipe, TitleCasePipe, TuiIcon, SortActivitiesByTimePipe, EncodeURIPipe],
   templateUrl: './trip-detail-page.component.html',
   styleUrl: './trip-detail-page.component.scss',
   changeDetection: ChangeDetectionStrategy.OnPush,
@@ -43,7 +50,6 @@ export class TripDetailPageComponent {
   private readonly _onTripIdChange = effect(() => {
     const id = this.tripId();
     if (!id) return; // Just to be sure, not strictly necessary
-    this.#tripUseCase.setTripId(id);
     this.#tripUseCase.setTripId(id);
   });
 
@@ -117,5 +123,43 @@ export class TripDetailPageComponent {
         }),
       )
       .subscribe();
+  }
+
+  protected createActivity(activity?: ActivityDto) {
+    const selectedDay = this.day();
+    const tripId = this.tripId();
+    if (!selectedDay) return;
+
+    const mode = activity ? 'edit' : 'create';
+    const dialogData = activity ? { mode, activity } : { mode };
+
+    this.#dialogService
+      .open<ActivityFormData>(new PolymorpheusComponent(ActvityFormDialog), {
+        size: 'l',
+        data: dialogData,
+      })
+      .subscribe((data: ActivityFormData) => {
+        this.#tripUseCase.createActivity(tripId, selectedDay, data).subscribe({
+          next: () => {
+            this.#alertService
+              .open('', {
+                label: activity ? 'Actividad actualizada' : 'Actividad creada',
+                autoClose: 3000,
+                appearance: 'positive',
+              })
+              .subscribe();
+            // Maybe reload activities
+          },
+          error: (err) => {
+            this.#alertService
+              .open('', {
+                label: err.message || 'Error al crear actividad',
+                autoClose: 3000,
+                appearance: 'negative',
+              })
+              .subscribe();
+          },
+        });
+      });
   }
 }

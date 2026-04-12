@@ -1,3 +1,5 @@
+import { MemberDto } from '../member/member.dto';
+
 export interface TripDto {
   id: string;
   createdAt: string; // DATE FORMAT
@@ -6,4 +8,5 @@ export interface TripDto {
   startDate: string; // DATE FORMAT
   endDate: string; // DATE FORMAT
   createdById: string;
+  members: MemberDto[];
 }

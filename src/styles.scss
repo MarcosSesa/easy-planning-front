@@ -3,42 +3,40 @@
 :root {
   //TEXT
 
-  --tui-text-primary: #0F172A;
-  --tui-text-secondary: #64748B;
+  --tui-text-primary: #0f172a;
+  --tui-text-secondary: #64748b;
   --tui-text-tertiary: #88898f;
-  --tui-text-disabled: #94A3B8;
-  --tui-text-negative: #E00B41;
-  --tui-text-positive: #E00B41;
-  --tui-text-link: #3B82F6;
-  --tui-text-action: #E00B41;
-
+  --tui-text-disabled: #94a3b8;
+  --tui-text-negative: #e00b41;
+  --tui-text-positive: #e00b41;
+  --tui-text-link: #3b82f6;
+  --tui-text-action: #e00b41;
 
   // BACKGROUNDS
 
-  --tui-background-base: #F7F7F7;
-  --tui-base-01: #F7F7F7;
-  --tui-base-02: #EEEEEE;
-  --tui-base-03: #E5E5E5;
-  --tui-base-04: #D1D5DB;
-  --tui-base-05: #9CA3AF;
-  --tui-base-06: #6B7280;
+  --tui-background-base: #f7f7f7;
+  --tui-base-01: #f7f7f7;
+  --tui-base-02: #eeeeee;
+  --tui-base-03: #e5e5e5;
+  --tui-base-04: #d1d5db;
+  --tui-base-05: #9ca3af;
+  --tui-base-06: #6b7280;
   --tui-base-07: #374151;
 
-  --tui-background: #FFFFFF;
-  --tui-background-neutral-1: #F3F4F6;
-  --tui-background-neutral-2: #EBEBEB;
-  --tui-background-accent-1: #E00B41;
-  --tui-background-accent-1-hover: #E00B41;
-  --tui-background-accent-2: #FFB8BD;
+  --tui-background: #ffffff;
+  --tui-background-neutral-1: #f3f4f6;
+  --tui-background-neutral-2: #ebebeb;
+  --tui-background-accent-1: #e00b41;
+  --tui-background-accent-1-hover: #e00b41;
+  --tui-background-accent-2: #ffb8bd;
   --tui-background-accent-3: rgba(255, 90, 95, 0.11);
 
-  --app-stroke-color: #E5E7EB;
+  --app-stroke-color: #e5e7eb;
   --tui-border-focus: rgba(255, 255, 255, 0);
-
-
 }
 
-html, body {
+html,
+body {
   height: 100%;
 }
 
@@ -46,9 +44,8 @@ body {
   display: flex;
   flex-direction: column;
   margin: 0;
-  font-family: Inter, "Helvetica Neue", sans-serif;
+  font-family: Inter, 'Helvetica Neue', sans-serif;
 }
-
 
 //CUSTOM COMMON CLASSES
 
@@ -62,23 +59,20 @@ body {
   border: solid 1px var(--tui-background-neutral-2);
   --tui-status-negative: var(--tui-background-neutral-2);
 
-  input {
+  input,
+  textarea {
     --t-shadow: none;
     caret-color: var(--tui-text-primary);
     outline-color: transparent;
-    font-size: 1rem;
   }
 
-  input:hover {
-    box-shadow: none
+  input:hover,
+  textarea:hover {
+    box-shadow: none;
   }
 
-  input::placeholder {
-    color: var(--tui-text-disabled);
-    font-size: 1rem;
-  }
-
-  input:focus::placeholder {
+  input:focus::placeholder,
+  textarea:focus::placeholder {
     color: var(--tui-text-disabled);
   }
 }
@@ -101,7 +95,3 @@ body {
   border-radius: 12px;
   color: var(--tui-text-positive);
 }
-
-
-
-

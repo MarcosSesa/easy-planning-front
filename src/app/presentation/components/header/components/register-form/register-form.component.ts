@@ -8,7 +8,7 @@ import {
   required,
   submit,
 } from '@angular/forms/signals';
-import { matchField } from 'app/presentation/utils/validators/match-fields.validator';
+import { matchField } from 'app/presentation/utils/match-fields.validator';
 import { TuiButton, TuiDialogContext, TuiIcon, TuiLoader, TuiTextfield } from '@taiga-ui/core';
 import { TranslatePipe, TranslateService } from '@ngx-translate/core';
 import { TuiPassword } from '@taiga-ui/kit';
