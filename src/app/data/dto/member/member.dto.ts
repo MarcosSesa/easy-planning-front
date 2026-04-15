@@ -9,4 +9,5 @@ export interface MemberDto {
   joinedAt: string | null; // DATE FORMAT
   tripId: string;
   userId: string;
+  user: { id: string; email: string; name: string };
 }

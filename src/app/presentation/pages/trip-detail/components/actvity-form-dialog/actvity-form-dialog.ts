@@ -1,11 +1,12 @@
 import { injectContext } from '@taiga-ui/polymorpheus';
-import { Component, OnInit, computed, effect } from '@angular/core';
+import { Component, OnInit, computed, effect, inject } from '@angular/core';
 import { TuiDialogContext } from '@taiga-ui/core/components/dialog';
 import { ActivityDto } from 'app/data/dto/activity/activity.dto';
 import { FormControl, FormGroup, ReactiveFormsModule, Validators } from '@angular/forms';
 import { TranslatePipe } from '@ngx-translate/core';
 import {
   TuiButton,
+  TuiDialogService,
   TuiIcon,
   TuiTextfieldComponent,
   TuiTextfieldDirective,
@@ -14,10 +15,15 @@ import {
 import { TuiTextarea, TuiTextareaLimit, TuiInputTime } from '@taiga-ui/kit';
 import { TuiTime } from '@taiga-ui/cdk/date-time';
 import { timeRangeValidator } from 'app/presentation/utils/time-range.validator';
+import { TripUseCase } from 'app/domain/use-cases/trip.use-case';
+import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
+import { map, Subscription, switchMap, tap } from 'rxjs';
 
 interface ActivityDialogData {
   mode: 'create' | 'edit';
   activity?: ActivityDto;
+  tripId: string;
+  selectedDayId: string;
 }
 
 export interface ActivityFormData {
@@ -46,7 +52,12 @@ export interface ActivityFormData {
   templateUrl: './actvity-form-dialog.html',
   styleUrl: './actvity-form-dialog.scss',
 })
-export class ActvityFormDialog implements OnInit {
+export class ActivityFormDialog implements OnInit {
+  readonly #tripUseCase = inject(TripUseCase);
+  readonly #dialogService = inject(TuiDialogService);
+
+  #activityChangeSub: Subscription | null = null;
+
   protected readonly context =
     injectContext<TuiDialogContext<ActivityFormData, ActivityDialogData>>();
   protected data = this.context.data;
@@ -77,15 +88,23 @@ export class ActvityFormDialog implements OnInit {
   ngOnInit() {
     const activity = this.data.activity;
     if (this.data.mode === 'edit' && activity) {
-      const startDate = new Date(activity.startTime);
-      const endDate = new Date(activity.endTime);
-      this.activityForm.patchValue({
-        title: activity.title,
-        description: activity.description || '',
-        location: activity.location || '',
-        startTime: new TuiTime(startDate.getHours(), startDate.getMinutes()),
-        endTime: new TuiTime(endDate.getHours(), endDate.getMinutes()),
-      });
+      this.#pathFormValue(activity);
+
+      this.#activityChangeSub = this.#tripUseCase
+        .listenToActivityIdChanges(this.data.tripId, this.data.selectedDayId, activity.id)
+        .pipe(
+          tap((updatedActivity) => {
+            // Dont use the open() return observable because never emiting on close if no component is passed; TaigaUI ERROR;
+            this.#dialogService
+              .open(
+                'Parece que alguien ha actualizado esta actividad mientras la editabas. ¿Quieres recargar los datos?',
+                { label: 'Ups...', size: 's', data: { button: 'Actualizar' }, closeable: false },
+              )
+              .subscribe();
+            this.#pathFormValue(updatedActivity);
+          }),
+        )
+        .subscribe();
     }
   }
 
@@ -99,6 +118,19 @@ export class ActvityFormDialog implements OnInit {
     if (this.data.activity) {
       formValue.id = this.data.activity.id;
     }
+    if (this.#activityChangeSub) this.#activityChangeSub.unsubscribe();
     this.context.completeWith(formValue);
+  }
+
+  #pathFormValue(activity: ActivityDto) {
+    const startDate = new Date(activity.startTime);
+    const endDate = new Date(activity.endTime);
+    this.activityForm.patchValue({
+      title: activity.title,
+      description: activity.description || '',
+      location: activity.location || '',
+      startTime: new TuiTime(startDate.getHours(), startDate.getMinutes()),
+      endTime: new TuiTime(endDate.getHours(), endDate.getMinutes()),
+    });
   }
 }

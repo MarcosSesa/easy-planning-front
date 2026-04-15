@@ -6,8 +6,8 @@
     <div style="display: flex; align-items: center; gap: 8px; justify-content: space-between">
       <span class="side-bar__trip-title">{{ tripData.title }}</span>
       <div style="display: flex; gap: 8px">
-        <tui-icon icon="@tui.pencil" (click)="editTrip(tripData)" />
-        <tui-icon (click)="deleteTrip(tripData.id)" icon="@tui.trash-2" />
+        <tui-icon class="side-bar__trip-action" icon="@tui.pencil" (click)="editTrip(tripData)" />
+        <tui-icon class="side-bar__trip-action" (click)="deleteTrip(tripData.id)" icon="@tui.trash-2" />
       </div>
     </div>
     <span class="side-bar__trip-subtitle">{{ tripData.description }}</span>
@@ -17,6 +17,19 @@
       <span class="side-bar__trip-date-label">al</span>
       <span class="side-bar__trip-date-value">{{ tripData.endDate | date: 'd MMMM' }}</span>
     </span>
+    @if (userId() === tripData.createdById) {
+      <tui-avatar-stack direction="right">
+        @for (member of tripData.members; track member.id) {
+          <tui-avatar size="m" [style.background]="member.user.name | tuiAutoColor"
+                      [src]="member.user.name | tuiInitials" />
+        }
+        <tui-avatar (click)="addMember()" class="side-bar__add-member" size="m" [style.background-color]="'#e00b41'">
+          <span class="side-bar__add-member__label">{{ 'PAGES.TRIP_DETAIL.ADD_MEMBER_BUTTON' | translate }}</span>
+          <tui-icon [style.color]="'white'" icon="@tui.plus" />
+        </tui-avatar>
+      </tui-avatar-stack>
+    }
+
   }
   <hr />
   <div class="side-bar__day-container">
@@ -27,27 +40,23 @@
         (click)="setSelectedDay(day.id)"
       >
         <div class="side-bar__day-container__day__number">
-          <span>Día</span>
+          <span>{{ 'PAGES.TRIP_DETAIL.DAY_LABEL' | translate }}</span>
           <span>{{ index + 1 }}</span>
         </div>
         <span class="side-bar__day-container__day__date">{{
-          day.date | date: 'EEEE, d MMMM' | titlecase
-        }}</span>
+            day.date | date: 'EEEE, d MMMM' | titlecase
+          }}</span>
       </div>
     }
   </div>
 </div>
 <div class="timeline">
-  <div class="timeline__item__card-placeholder" (click)="createActivity()">
+  <div class="timeline__item__card-placeholder" (click)="createOrEditActivity()">
     <tui-icon icon="@tui.badge-plus" />
-    <span>Crear una actividad</span>
+    <span>{{ 'PAGES.TRIP_DETAIL.CREATE_ACTIVITY_BUTTON' | translate }}</span>
   </div>
   @if (selectedDay) {
-    @for (
-      activity of selectedDay.activities | sortActivitiesByTime;
-      track activity.id;
-      let index = $index
-    ) {
+    @for (activity of selectedDay.activities | sortActivitiesByTime; track activity.id; ) {
       <div class="timeline__item">
         <!-- Left side: Timeline line with icon -->
         <div class="timeline__item__left">
@@ -58,11 +67,14 @@
         </div>
 
         <!-- Right side: Activity card -->
-        <div class="timeline__item__card" (click)="createActivity(activity)">
-          <span class="timeline__item__card__title">{{ activity.title }}</span>
+        <div class="timeline__item__card" (click)="createOrEditActivity(activity)">
+          <div style="display: flex; gap: 0.5rem; justify-content: space-between;">
+            <span class="timeline__item__card__title">{{ activity.title }}</span>
+            <tui-icon class="timeline__item__card__action" (click)="deleteActivity(activity.id, $event)" icon="@tui.trash-2" />
+          </div>
           <div style="display: flex; gap: 0.5rem">
             <span class="timeline__item__card__time"
-              >{{ activity.startTime | date: 'HH:mm' }} -
+            >{{ activity.startTime | date: 'HH:mm' }} -
               {{ activity.endTime | date: 'HH:mm' }}</span
             >
             @if (activity.location) {
@@ -80,7 +92,7 @@
                 (click)="$event.stopPropagation()"
               >
                 <tui-icon icon="@tui.map-pin" />
-                <span>Ver en maps</span>
+                <span>{{ 'PAGES.TRIP_DETAIL.VIEW_IN_MAPS' | translate }}</span>
               </a>
             }
           </div>

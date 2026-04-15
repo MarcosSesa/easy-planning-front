@@ -17,14 +17,24 @@
   overflow-x: hidden;
   gap: 0.5rem;
 
-  tui-icon {
-    font-size: 20px;
-    cursor: pointer;
+  &__add-member {
     transition: all 0.3s;
 
+    &__label {
+      display: none;
+      opacity: 0;
+      color: white;
+    }
+
     &:hover {
-      color: var(--tui-background-accent-1);
-      scale: 1.1;
+      cursor: pointer;
+      transform: translateX(2px);
+      width: 100px;
+
+      .side-bar__add-member__label {
+        display: flex;
+        opacity: 1;
+      }
     }
   }
 
@@ -36,6 +46,14 @@
     text-overflow: ellipsis;
     white-space: nowrap;
     font-size: 2rem;
+  }
+
+  &__trip-action {
+    &:hover {
+      color: var(--tui-background-accent-1);
+      scale: 1.05;
+      cursor: pointer;
+    }
   }
 
   &__trip-subtitle {
@@ -205,6 +223,14 @@
         transition: color 300ms ease;
       }
 
+      &__action {
+        transition: all 0.3s;
+        &:hover {
+          color: var(--tui-background-accent-1);
+          scale: 1.05;
+        }
+      }
+
       &__time {
         font-size: 1rem;
         font-weight: 600;
@@ -274,6 +300,7 @@
 
 .clicable {
   cursor: pointer;
+
   &:hover {
     text-decoration: underline;
   }

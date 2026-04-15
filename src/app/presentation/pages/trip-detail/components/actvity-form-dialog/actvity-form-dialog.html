@@ -2,12 +2,11 @@
   <tui-icon icon="@tui.badge-plus" />
   <span class="header__title">{{ headerKey() | translate }}</span>
 </div>
-
 <form class="form" (submit)="onSubmit($event)">
   <div class="form__field">
     <span class="form__field__label">{{
-      'PAGES.TRIP_DETAIL.ACTIVITY_DIALOG.TITLE_LABEL' | translate
-    }}</span>
+        'PAGES.TRIP_DETAIL.ACTIVITY_DIALOG.TITLE_LABEL' | translate
+      }}</span>
     <tui-textfield [tuiTextfieldSize]="'m'">
       <input
         [formControl]="activityForm.controls.title"
@@ -29,8 +28,8 @@
 
   <div class="form__field">
     <span class="form__field__label">{{
-      'PAGES.TRIP_DETAIL.ACTIVITY_DIALOG.DESCRIPTION_LABEL' | translate
-    }}</span>
+        'PAGES.TRIP_DETAIL.ACTIVITY_DIALOG.DESCRIPTION_LABEL' | translate
+      }}</span>
     <tui-textfield [tuiTextfieldSize]="'m'">
       <textarea
         [formControl]="activityForm.controls.description"
@@ -52,8 +51,8 @@
 
   <div class="form__field">
     <span class="form__field__label">{{
-      'PAGES.TRIP_DETAIL.ACTIVITY_DIALOG.LOCATION_LABEL' | translate
-    }}</span>
+        'PAGES.TRIP_DETAIL.ACTIVITY_DIALOG.LOCATION_LABEL' | translate
+      }}</span>
     <tui-textfield [tuiTextfieldSize]="'m'">
       <input
         [formControl]="activityForm.controls.location"
@@ -73,8 +72,8 @@
   <div style="display: flex; gap: 1rem">
     <div class="form__field">
       <span class="form__field__label">{{
-        'PAGES.TRIP_DETAIL.ACTIVITY_DIALOG.START_TIME_LABEL' | translate
-      }}</span>
+          'PAGES.TRIP_DETAIL.ACTIVITY_DIALOG.START_TIME_LABEL' | translate
+        }}</span>
       <tui-textfield [tuiTextfieldSize]="'m'">
         <input tuiInputTime [formControl]="activityForm.controls.startTime" />
       </tui-textfield>
@@ -89,8 +88,8 @@
 
     <div class="form__field">
       <span class="form__field__label">{{
-        'PAGES.TRIP_DETAIL.ACTIVITY_DIALOG.END_TIME_LABEL' | translate
-      }}</span>
+          'PAGES.TRIP_DETAIL.ACTIVITY_DIALOG.END_TIME_LABEL' | translate
+        }}</span>
       <tui-textfield [tuiTextfieldSize]="'m'">
         <input tuiInputTime [formControl]="activityForm.controls.endTime" />
       </tui-textfield>
@@ -110,7 +109,8 @@
   </div>
 
   <div class="form__actions">
-    <button [disabled]="activityForm.invalid" class="form__button" size="m" tuiButton type="submit">
+    <button [disabled]="activityForm.invalid || activityForm.pristine" class="form__button" size="m" tuiButton
+            type="submit">
       <span>{{ buttonKey() | translate }}</span>
     </button>
   </div>

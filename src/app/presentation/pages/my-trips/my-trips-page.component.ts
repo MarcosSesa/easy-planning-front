@@ -1,6 +1,6 @@
 import { Component, effect, inject, signal, Signal } from '@angular/core';
 import { TranslatePipe } from '@ngx-translate/core';
-import { TuiButton, TuiIcon } from '@taiga-ui/core';
+import { TuiButton, TuiDialogService, TuiIcon } from '@taiga-ui/core';
 import { RouterLink } from '@angular/router';
 import { TuiChip, TuiTabs } from '@taiga-ui/kit';
 import { toSignal } from '@angular/core/rxjs-interop';
@@ -51,6 +51,11 @@ export class MyTripsPageComponent {
   });
 
   protected resolveInvitation(memberId: string, status: AcceptMemberStatus) {
-    this.#membersUseCase.acceptMember(memberId, status);
+    this.#membersUseCase.acceptMember(memberId, status).subscribe({
+      next: () => {
+        this.#membersUseCase.reloadInvitations();
+        this.#tripsUseCase.reloadUserTrips();
+      },
+    });
   }
 }

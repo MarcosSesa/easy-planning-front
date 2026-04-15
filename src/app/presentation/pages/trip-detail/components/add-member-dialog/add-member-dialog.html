@@ -1,0 +1,37 @@
+<div class="header">
+  <tui-icon icon="@tui.badge-plus" />
+  <span class="header__title">{{ 'PAGES.TRIP_DETAIL.ADD_MEMBER_DIALOG.TITLE' | translate }}</span>
+</div>
+
+<form class="form" (submit)="onSubmit($event)">
+  <div class="form__field">
+    <span class="form__field__label">{{
+      'PAGES.TRIP_DETAIL.ADD_MEMBER_DIALOG.EMAIL_LABEL' | translate
+    }}</span>
+    <tui-textfield [tuiTextfieldSize]="'m'">
+      <input
+        [formControl]="memberForm.controls.email"
+        [placeholder]="'PAGES.TRIP_DETAIL.ADD_MEMBER_DIALOG.PLACEHOLDER_EMAIL' | translate"
+        tuiTextfield
+        type="email"
+      />
+    </tui-textfield>
+    @if (memberForm.controls.email.touched && memberForm.controls.email.errors) {
+      <div class="form-field-error">
+        @if (memberForm.controls.email.errors['required']) {
+          <span>{{ 'COMMON.VALIDATORS.EMAIL_REQUIRED' | translate }}</span>
+        }
+        @if (memberForm.controls.email.errors['email']) {
+          <span>{{ 'COMMON.VALIDATORS.EMAIL_INVALID' | translate }}</span>
+        }
+      </div>
+    }
+  </div>
+
+  <div class="form__actions">
+    <button [disabled]="memberForm.invalid" class="form__button" size="m" tuiButton type="submit">
+      <span>{{ 'PAGES.TRIP_DETAIL.ADD_MEMBER_DIALOG.SEND_BUTTON' | translate }}</span>
+    </button>
+  </div>
+</form>
+

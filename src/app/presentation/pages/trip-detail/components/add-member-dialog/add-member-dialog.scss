@@ -1,0 +1,24 @@
+:host {
+  display: flex;
+  flex-direction: column;
+}
+
+.header {
+  display: flex;
+  align-items: center;
+  color: var(--tui-text-primary);
+  font-size: 1.5rem;
+  font-weight: bold;
+  gap: 0.5rem;
+  padding-bottom: 1rem;
+
+  tui-icon {
+    color: var(--tui-text-positive);
+  }
+}
+
+.form{
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+}

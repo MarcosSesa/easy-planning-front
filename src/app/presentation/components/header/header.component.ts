@@ -63,7 +63,7 @@ export class HeaderComponent {
         switchMap((message) =>
           this.#alertService.open('', {
             label: ` ${message}`,
-            autoClose: 3000,
+            autoClose: 2000,
             appearance: 'positive',
           }),
         ),

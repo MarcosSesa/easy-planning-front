@@ -25,7 +25,7 @@ export class MemberRepository {
   }
 
   acceptMember(body: AcceptMemberBodyDto) {
-    return this.#httpClient.patch<BaseResponse<MemberDto>>(
+    return this.#httpClient.put<BaseResponse<MemberDto>>(
       `${this.#url}/members/resolve-membership`,
       body,
     );

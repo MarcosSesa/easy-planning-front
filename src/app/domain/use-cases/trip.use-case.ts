@@ -10,6 +10,8 @@ import {
   tap,
   share,
   shareReplay,
+  ReplaySubject,
+  Subject,
 } from 'rxjs';
 import { TripStatus } from 'app/presentation/pages/my-trips/my-trips-page.component';
 import { TripDayRepository } from 'app/data/repositories/trip-day.repository';
@@ -27,19 +29,23 @@ export class TripUseCase {
   readonly #tripDayRepository = inject(TripDayRepository);
   readonly #activityRepository = inject(ActivityRepository);
 
-  readonly #tripStatusFilter = new BehaviorSubject<TripStatus | null>(null);
-  readonly #tripId = new BehaviorSubject<string | null>(null);
-  readonly #tripDayId = new BehaviorSubject<string | null>(null);
-  readonly #realoadTrip = new BehaviorSubject<void>(undefined);
+  readonly #tripStatusFilter = new Subject<TripStatus | null>();
+  readonly #tripId = new Subject<string | null>();
+  readonly #tripDayId = new Subject<string | null>();
+  readonly #reloadTrip = new BehaviorSubject<void>(undefined);
   readonly #reloadDay = new BehaviorSubject<void>(undefined);
+  readonly #reloadUserTrips = new BehaviorSubject<void>(undefined);
 
-  userTrips$ = this.#tripStatusFilter.asObservable().pipe(
-    switchMap((status) => this.#tripRepository.getUserTrips(status)),
+  userTrips$ = combineLatest([
+    this.#tripStatusFilter.asObservable(),
+    this.#reloadUserTrips.asObservable(),
+  ]).pipe(
+    switchMap(([status, _]) => this.#tripRepository.getUserTrips(status)),
     map((trips) => trips.data),
     shareReplay({ bufferSize: 1, refCount: true }),
   );
 
-  tripById$ = combineLatest([this.#tripId.asObservable(), this.#realoadTrip.asObservable()]).pipe(
+  tripById$ = combineLatest([this.#tripId.asObservable(), this.#reloadTrip.asObservable()]).pipe(
     filter(([tripId, _reaload]) => Boolean(tripId)),
     switchMap(([tripId, _reaload]) => this.#tripRepository.getTripById(tripId as string)),
     map((trip) => trip.data),
@@ -48,7 +54,7 @@ export class TripUseCase {
 
   tripDaysByTripId$ = combineLatest([
     this.#tripId.asObservable(),
-    this.#realoadTrip.asObservable(),
+    this.#reloadTrip.asObservable(),
   ]).pipe(
     filter(([tripId, _reaload]) => Boolean(tripId)),
     switchMap(([tripId, _reaload]) =>
@@ -95,6 +101,12 @@ export class TripUseCase {
     return this.#tripRepository.deleteTrip(tripId);
   }
 
+  deleteActivity(tripId: string, dayId: string, activityId: string) {
+    return this.#activityRepository
+      .deleteActivity(tripId, dayId, activityId)
+      .pipe(tap(() => this.reloadDay()));
+  }
+
   createActivity(tripId: string, tripDay: TripDaysByIdResponseDto, activityData: ActivityFormData) {
     const date = new Date(tripDay.date);
     const startDate = new Date(date);
@@ -114,6 +126,10 @@ export class TripUseCase {
       .pipe(tap(() => this.reloadDay()));
   }
 
+  listenToActivityIdChanges(tripId: string, dayId: string, activityId: string) {
+    return this.#activityRepository.listenToActivityUpdates(tripId, dayId, activityId);
+  }
+
   // SETTERS
 
   setTipStatusFilter(status: TripStatus | null) {
@@ -129,9 +145,12 @@ export class TripUseCase {
   }
 
   reloadTrip() {
-    this.#realoadTrip.next();
+    this.#reloadTrip.next();
   }
   reloadDay() {
     this.#reloadDay.next();
+  }
+  reloadUserTrips() {
+    this.#reloadUserTrips.next();
   }
 }

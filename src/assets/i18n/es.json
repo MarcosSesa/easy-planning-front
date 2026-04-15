@@ -86,7 +86,29 @@
         "CREATE_BUTTON": "Crear",
         "UPDATE_BUTTON": "Actualizar",
         "CANCEL_BUTTON": "Cancelar"
-      }
+      },
+      "ADD_MEMBER_DIALOG": {
+        "TITLE": "Agregar Miembro",
+        "EMAIL_LABEL": "Correo Electrónico",
+        "PLACEHOLDER_EMAIL": "Ingresa el correo del miembro",
+        "SEND_BUTTON": "Enviar Invitación"
+      },
+      "DELETE_BUTTON": "Borrar",
+      "CANCEL_BUTTON_CONFIRM": "Cancelar",
+      "DELETE_TRIP_CONFIRM_LABEL": "¿Estás seguro de que quieres borrar este viaje? Esta acción no se puede deshacer.",
+      "DELETE_ACTIVITY_CONFIRM_LABEL": "¿Estás seguro de que quieres borrar esta actividad?",
+      "TRIP_DELETED_SUCCESS": "Viaje borrado",
+      "TRIP_UPDATED_SUCCESS": "Viaje actualizado",
+      "ACTIVITY_UPDATED_SUCCESS": "Actividad actualizada",
+      "ACTIVITY_CREATED_SUCCESS": "Actividad creada",
+      "ACTIVITY_CREATE_ERROR": "Error al crear actividad",
+      "INVITATION_SENT_SUCCESS": "Invitación enviada",
+      "EMAIL_NOT_EXISTS_ERROR": "El email introducido no existe",
+      "EMAIL_NOT_PERMISION_ERROR": "Solo el creador del viaje puede añadir nuevos miembros",
+      "CREATE_ACTIVITY_BUTTON": "Crear una actividad",
+      "ADD_MEMBER_BUTTON": "Añadir",
+      "VIEW_IN_MAPS": "Ver en maps",
+      "DAY_LABEL": "Día"
     }
   },
   "COMMON": {

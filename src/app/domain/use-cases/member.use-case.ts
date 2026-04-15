@@ -2,7 +2,7 @@ import { inject, Injectable } from '@angular/core';
 import { MemberRepository } from 'app/data/repositories/member.repository';
 import { CreateMemberBodyDto } from 'app/data/dto/member/create-memeber.dto';
 import { AcceptMemberStatus } from 'app/data/dto/member/member-status.dto';
-import { map } from 'rxjs';
+import { BehaviorSubject, map, switchMap } from 'rxjs';
 
 @Injectable({
   providedIn: 'root',
@@ -10,8 +10,10 @@ import { map } from 'rxjs';
 export class MemberUseCase {
   readonly #memberRepository = inject(MemberRepository);
 
-  $invitations = this.#memberRepository
-    .getPendingMembers()
+  readonly #reloadInvitations$ = new BehaviorSubject<void>(undefined);
+
+  $invitations = this.#reloadInvitations$
+    .pipe(switchMap(() => this.#memberRepository.getPendingMembers()))
     .pipe(map((invitations) => invitations.data));
 
   inviteMember(member: CreateMemberBodyDto) {
@@ -20,5 +22,9 @@ export class MemberUseCase {
 
   acceptMember(memberId: string, status: AcceptMemberStatus) {
     return this.#memberRepository.acceptMember({ memberId, status });
+  }
+
+  reloadInvitations() {
+    this.#reloadInvitations$.next(undefined);
   }
 }
