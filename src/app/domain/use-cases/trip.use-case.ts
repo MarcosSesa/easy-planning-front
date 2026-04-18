@@ -8,18 +8,18 @@ import {
   switchMap,
   combineLatest,
   tap,
-  share,
   shareReplay,
-  ReplaySubject,
   Subject,
 } from 'rxjs';
 import { TripStatus } from 'app/presentation/pages/my-trips/my-trips-page.component';
 import { TripDayRepository } from 'app/data/repositories/trip-day.repository';
 import { formatDayToDate } from 'app/presentation/utils/format-date';
 import { ActivityRepository } from 'app/data/repositories/activity.repository';
-import { ActivityFormData } from 'app/presentation/pages/trip-detail/components/actvity-form-dialog/actvity-form-dialog';
+import type { ActivityFormData } from 'app/presentation/pages/trip-detail/components/actvity-form-dialog/actvity-form-dialog';
 import { UpdateActivityDto } from 'app/data/dto/activity/update-activity.dto';
 import { TripDaysByIdResponseDto } from 'app/data/dto/trip-day/trip-days.dto';
+import { GeminiRepository } from 'app/data/repositories/gemini.repository';
+import { toSignal } from '@angular/core/rxjs-interop';
 
 @Injectable({
   providedIn: 'root',
@@ -28,6 +28,7 @@ export class TripUseCase {
   readonly #tripRepository = inject(TripRepository);
   readonly #tripDayRepository = inject(TripDayRepository);
   readonly #activityRepository = inject(ActivityRepository);
+  readonly #geminiRepository = inject(GeminiRepository);
 
   readonly #tripStatusFilter = new Subject<TripStatus | null>();
   readonly #tripId = new Subject<string | null>();
@@ -75,10 +76,31 @@ export class TripUseCase {
     shareReplay({ bufferSize: 1, refCount: true }),
   );
 
+  private readonly _onDayChangeListenEffect$ = toSignal(
+    combineLatest({
+      tripId: this.#tripId.asObservable().pipe(filter(Boolean)),
+      dayId: this.#tripDayId.asObservable().pipe(filter(Boolean)),
+    }).pipe(
+      switchMap(({ tripId, dayId }) => this.#tripDayRepository.listenToDayUpdates(tripId, dayId)),
+      tap(() => this.reloadDay()),
+    ),
+  );
+
   createTrip(trip: CreateTripFormInterface) {
     const startDate = formatDayToDate(trip.dateRange.from);
     const endDate = formatDayToDate(trip.dateRange.to);
     return this.#tripRepository.createTrip({
+      title: trip.location,
+      description: trip.description,
+      startDate,
+      endDate,
+    });
+  }
+
+  generateTrip(trip: CreateTripFormInterface) {
+    const startDate = formatDayToDate(trip.dateRange.from);
+    const endDate = formatDayToDate(trip.dateRange.to);
+    return this.#geminiRepository.createTripByAi({
       title: trip.location,
       description: trip.description,
       startDate,

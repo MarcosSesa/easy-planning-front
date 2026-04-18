@@ -77,6 +77,8 @@
     }
 
     &__button {
+      flex: 1;
+
       &:hover {
         box-shadow: 0 0 15px var(--tui-background-accent-2);
         scale: 1.01;

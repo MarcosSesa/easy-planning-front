@@ -50,6 +50,7 @@ export class TripFormComponent {
   readonly initialValue = input<Partial<TripDto> | null>(null);
   readonly submitLabelKey = input<string | null>(null);
   readonly formSubmit = output<CreateTripFormInterface>();
+  readonly generateTripSubmit = output<CreateTripFormInterface>();
 
   protected readonly tripForm = new FormGroup({
     location: new FormControl('', [Validators.required, Validators.maxLength(50)]),
@@ -57,17 +58,15 @@ export class TripFormComponent {
     dateRange: new FormControl<TuiDayRange | null>(null, [Validators.required]),
   });
 
+  protected isEditing = computed(() => this.mode() === 'edit');
+
   protected readonly headerKey = computed(() =>
-    this.mode() === 'edit'
-      ? 'PAGES.CREATE_TRIP.TRIP_DETAILS_EDIT'
-      : 'PAGES.CREATE_TRIP.TRIP_DETAILS',
+    this.isEditing() ? 'PAGES.CREATE_TRIP.TRIP_DETAILS_EDIT' : 'PAGES.CREATE_TRIP.TRIP_DETAILS',
   );
   protected readonly buttonKey = computed(() => {
     const key = this.submitLabelKey();
     if (key) return key;
-    return this.mode() === 'edit'
-      ? 'PAGES.CREATE_TRIP.UPDATE_BUTTON'
-      : 'PAGES.CREATE_TRIP.CREATE_BUTTON';
+    return this.isEditing() ? 'PAGES.CREATE_TRIP.UPDATE_BUTTON' : 'PAGES.CREATE_TRIP.CREATE_BUTTON';
   });
 
   private readonly _syncInitialValueEffect = effect(() => {
@@ -97,5 +96,15 @@ export class TripFormComponent {
     }
 
     this.formSubmit.emit(this.tripForm.getRawValue() as CreateTripFormInterface);
+  }
+
+  protected generateTrip(event: PointerEvent) {
+    event.preventDefault();
+    this.tripForm.markAllAsTouched();
+
+    if (this.tripForm.invalid) {
+      return;
+    }
+    this.generateTripSubmit.emit(this.tripForm.getRawValue() as CreateTripFormInterface);
   }
 }

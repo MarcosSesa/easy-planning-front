@@ -6,7 +6,10 @@
   @if (isLoggedIn()) {
     <span class="header-actions__nav-element"
           routerLink="my-trips">{{ 'COMPONENTS.HEADER.MY_TRIPS' | translate }}</span>
-    <tui-icon class="header-actions__icon" icon="@tui.bell" />
+    <tui-badged-content routerLink="my-trips">
+      <tui-badge-notification size="s" tuiSlot="top">{{ invitations()?.length ?? 0 }}</tui-badge-notification>
+      <tui-icon class="header-actions__icon" icon="@tui.bell" />
+    </tui-badged-content>
     <tui-icon (click)="logout()" class="header-actions__icon" icon="@tui.log-out" />
     <tui-avatar [src]="usernameInitials()" class="header-actions__user-img" />
   } @else {

@@ -96,10 +96,12 @@ export class ActivityFormDialog implements OnInit {
           tap((updatedActivity) => {
             // Dont use the open() return observable because never emiting on close if no component is passed; TaigaUI ERROR;
             this.#dialogService
-              .open(
-                'Parece que alguien ha actualizado esta actividad mientras la editabas. ¿Quieres recargar los datos?',
-                { label: 'Ups...', size: 's', data: { button: 'Actualizar' }, closeable: false },
-              )
+              .open('Parece que alguien ha actualizado esta actividad mientras la editabas.', {
+                label: 'Ups...',
+                size: 's',
+                data: { button: 'Actualizar datos' },
+                closeable: false,
+              })
               .subscribe();
             this.#pathFormValue(updatedActivity);
           }),

@@ -39,7 +39,9 @@
       "FEATURE_3_DESC": "Centraliza vuelos, hoteles y división de gastos en un solo panel. Olvida las hojas de cálculo desordenadas."
     },
     "CREATE_TRIP": {
+      "LOADING": "Generando viaje...",
       "INFO_TITLE": "Planea tu próxima aventura",
+      "GENERATE_TRIP_BUTTON": "Generar con IA",
       "INFO_DESCRIPTION": "Añade el donde y el cuando y deja que la IA haga el itinerario por ti.",
       "FEATURE_1_TITLE": "Facil e intuitivo",
       "FEATURE_1_DESC": "Crea tu viaje en minutos con una interfaz fácil de usar, sin necesidad de experiencia previa.",

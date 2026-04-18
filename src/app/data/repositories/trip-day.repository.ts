@@ -7,6 +7,8 @@ import {
   TripDaysByTripIdResponseDto,
 } from 'app/data/dto/trip-day/trip-days.dto';
 import { of } from 'rxjs';
+import { createEventStream } from 'app/presentation/utils/observable-event-source';
+import { ActivityDto } from 'app/data/dto/activity/activity.dto';
 
 @Injectable({
   providedIn: 'root',
@@ -25,5 +27,10 @@ export class TripDayRepository {
     return this.#httpClient.get<BaseResponse<TripDaysByIdResponseDto>>(
       `${this.#url}/${tripId}/days/${dayId}`,
     );
+  }
+
+  listenToDayUpdates(tripId: string, dayId: string) {
+    const url = `${this.#url}/${tripId}/days/${dayId}/stream`;
+    return createEventStream<ActivityDto>(url, 'tripDayUpdated');
   }
 }

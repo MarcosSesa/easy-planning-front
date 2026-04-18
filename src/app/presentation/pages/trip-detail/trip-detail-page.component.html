@@ -5,10 +5,13 @@
   @if (tripData) {
     <div style="display: flex; align-items: center; gap: 8px; justify-content: space-between">
       <span class="side-bar__trip-title">{{ tripData.title }}</span>
-      <div style="display: flex; gap: 8px">
-        <tui-icon class="side-bar__trip-action" icon="@tui.pencil" (click)="editTrip(tripData)" />
-        <tui-icon class="side-bar__trip-action" (click)="deleteTrip(tripData.id)" icon="@tui.trash-2" />
-      </div>
+      @if (userId() === tripData.createdById) {
+        <div style="display: flex; gap: 8px">
+          <tui-icon class="side-bar__trip-action" icon="@tui.pencil" (click)="editTrip(tripData)" />
+          <tui-icon class="side-bar__trip-action" (click)="deleteTrip(tripData.id)" icon="@tui.trash-2" />
+        </div>
+      }
+
     </div>
     <span class="side-bar__trip-subtitle">{{ tripData.description }}</span>
     <span class="side-bar__trip-date">
@@ -70,7 +73,8 @@
         <div class="timeline__item__card" (click)="createOrEditActivity(activity)">
           <div style="display: flex; gap: 0.5rem; justify-content: space-between;">
             <span class="timeline__item__card__title">{{ activity.title }}</span>
-            <tui-icon class="timeline__item__card__action" (click)="deleteActivity(activity.id, $event)" icon="@tui.trash-2" />
+            <tui-icon class="timeline__item__card__action" (click)="deleteActivity(activity.id, $event)"
+                      icon="@tui.trash-2" />
           </div>
           <div style="display: flex; gap: 0.5rem">
             <span class="timeline__item__card__time"

@@ -7,8 +7,8 @@
   <form class="form-container__form" (submit)="onSubmit($event)">
     <div class="form-container__form__field">
       <span class="form-container__form__field__label">{{
-        'PAGES.CREATE_TRIP.LOCATION_LABEL' | translate
-      }}</span>
+          'PAGES.CREATE_TRIP.LOCATION_LABEL' | translate
+        }}</span>
       <tui-textfield [tuiTextfieldSize]="'m'">
         <input
           [formControl]="tripForm.controls.location"
@@ -30,8 +30,8 @@
 
     <div class="form-container__form__field">
       <span class="form-container__form__field__label">{{
-        'PAGES.CREATE_TRIP.DESCRIPTION_LABEL' | translate
-      }}</span>
+          'PAGES.CREATE_TRIP.DESCRIPTION_LABEL' | translate
+        }}</span>
       <tui-textfield [tuiTextfieldSize]="'m'">
         <textarea
           [formControl]="tripForm.controls.description"
@@ -46,8 +46,8 @@
         <div class="form-field-error">
           @if (tripForm.controls.description.errors['maxlength']) {
             <span>{{
-              'COMMON.VALIDATORS.DESCRIPTION_MAX_LENGTH' | translate: { count: 200 }
-            }}</span>
+                'COMMON.VALIDATORS.DESCRIPTION_MAX_LENGTH' | translate: { count: 200 }
+              }}</span>
           }
         </div>
       }
@@ -55,8 +55,8 @@
 
     <div class="form-container__form__field">
       <span class="form-container__form__field__label">{{
-        'PAGES.CREATE_TRIP.DATE_LABEL' | translate
-      }}</span>
+          'PAGES.CREATE_TRIP.DATE_LABEL' | translate
+        }}</span>
       <tui-textfield
         class="form-container__form__field__calendar"
         [tuiTextfieldCleaner]="false"
@@ -78,14 +78,29 @@
       }
     </div>
 
-    <button
-      [disabled]="tripForm.invalid"
-      class="form-container__form__button"
-      size="m"
-      tuiButton
-      type="submit"
-    >
-      <span>{{ buttonKey() | translate }}</span>
-    </button>
+    <div style="display: flex; gap:1rem;">
+      <button
+        [disabled]="tripForm.invalid"
+        class="form-container__form__button"
+        size="m"
+        tuiButton
+        type="submit"
+      >
+        <span>{{ buttonKey() | translate }}</span>
+      </button>
+      @if (!isEditing()) {
+        <button
+          [disabled]="tripForm.invalid"
+          class="form-container__form__button"
+          size="m"
+          tuiButton
+          (click)="generateTrip($event)"
+        >
+          <span>{{ 'PAGES.CREATE_TRIP.GENERATE_TRIP_BUTTON' | translate }}</span>
+          <tui-icon icon="@tui.wand-sparkles" />
+        </button>
+      }
+    </div>
+
   </form>
 </div>

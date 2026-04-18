@@ -33,4 +33,12 @@
   </div>
 </div>
 
-<app-trip-form mode="create" (formSubmit)="onSubmit($event)" />
+<app-trip-form mode="create" (generateTripSubmit)="onGenerateTrip($event)" (formSubmit)="onSubmit($event)" />
+
+@if (loading()) {
+  <div class="loading">
+    <tui-loader />
+    <span>{{ 'PAGES.CREATE_TRIP.LOADING' | translate }}</span>
+  </div>
+
+}
