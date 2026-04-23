@@ -22,9 +22,8 @@ export class CreateTripPageComponent {
   protected readonly loading = signal(false);
 
   protected onSubmit(tripInfo: CreateTripFormInterface) {
-    console.log('Creating trip with info:', tripInfo);
     this.#tripUseCase.createTrip(tripInfo).subscribe({
-      next: (_res) => {
+      next: (res) => {
         this.#alertService
           .open('', {
             label: this.#translateService.instant('PAGES.CREATE_TRIP.SUCCESS_MESSAGE'),
@@ -32,7 +31,7 @@ export class CreateTripPageComponent {
             appearance: 'positive',
           })
           .subscribe();
-        this.#router.navigate(['/my-trips']);
+        this.#router.navigate([`/trip/${res.data.id}`]);
       },
       error: (err) =>
         this.#alertService
