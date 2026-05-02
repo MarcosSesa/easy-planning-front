@@ -1,3 +1,3 @@
 export const environment = {
-  easyPlaningsBackUrl: 'http://localhost:3000',
+  easyPlaningsBackUrl: 'https://easyplannings-api.marcossesa.com',
 };
