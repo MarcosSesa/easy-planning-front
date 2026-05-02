@@ -1,4 +1,4 @@
-FROM node:lts as build
+FROM node:lts AS build
 WORKDIR /usr/local/app
 
 
@@ -21,5 +21,5 @@ RUN npm run build
 
 FROM nginx:stable
 COPY --from=build /usr/local/app/dist/easy-planings-front/browser /usr/share/nginx/html
-COPY /nginx.conf  /etc/nginx/conf.d/default.conf
+COPY nginx.conf /etc/nginx/conf.d/default.conf
 EXPOSE 80
