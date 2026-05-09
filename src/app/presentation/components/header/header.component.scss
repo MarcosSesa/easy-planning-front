@@ -50,7 +50,7 @@
     height: 20px;
     transition: all 300ms;
 
-    &:after{
+    &:after {
       color: var(--tui-text-primary);
     }
 
@@ -83,3 +83,12 @@
   flex-direction: column;
   padding: 1rem;
 }
+
+@media (max-width: 768px) {
+  .header-title {
+    &__name {
+      display: none;
+    }
+  }
+}
+

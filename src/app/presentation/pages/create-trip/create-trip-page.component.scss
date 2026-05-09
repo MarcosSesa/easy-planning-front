@@ -70,6 +70,21 @@ app-trip-form {
   flex: 1;
 }
 
+@media (max-width: 768px) {
+  :host {
+    display: block;
+    flex-direction: column;
+    padding: 2rem;
+  }
+
+  .info {
+    padding-bottom: 2rem;
+    &__title {
+      font-size: 2rem;
+    }
+  }
+}
+
 .loading{
   justify-content: center;
   position: fixed;

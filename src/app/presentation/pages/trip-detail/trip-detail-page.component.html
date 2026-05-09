@@ -1,4 +1,11 @@
-<div class="side-bar">
+<div class="mobile-header">
+  <button class="mobile-menu-btn" (click)="toggleSidebar()">
+    <tui-icon [icon]="sidebarOpen() ? '@tui.x' : '@tui.menu'" />
+  </button>
+  <span class="mobile-title">{{ trip()?.title }}</span>
+</div>
+
+<div class="side-bar" [class.sidebar-open]="sidebarOpen()">
   @let tripData = trip();
   @let selectedDay = day();
 
@@ -53,6 +60,11 @@
     }
   </div>
 </div>
+
+@if (sidebarOpen()) {
+  <div class="sidebar-overlay" (click)="closeSidebar()"></div>
+}
+
 <div class="timeline">
   <div class="timeline__item__card-placeholder" (click)="createOrEditActivity()">
     <tui-icon icon="@tui.badge-plus" />

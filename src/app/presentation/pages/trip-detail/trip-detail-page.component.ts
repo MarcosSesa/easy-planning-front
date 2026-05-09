@@ -1,4 +1,12 @@
-import { ChangeDetectionStrategy, Component, effect, inject, input, Signal } from '@angular/core';
+import {
+  ChangeDetectionStrategy,
+  Component,
+  effect,
+  inject,
+  input,
+  Signal,
+  signal,
+} from '@angular/core';
 import { toSignal } from '@angular/core/rxjs-interop';
 import { TripUseCase } from 'app/domain/use-cases/trip.use-case';
 import { TripDto } from 'app/data/dto/trip/trip.dto';
@@ -63,6 +71,8 @@ export class TripDetailPageComponent {
 
   // This input came from route param. Is automatically bind by angular when we define the route with :tripId param
   tripId = input.required<string>();
+
+  protected readonly sidebarOpen = signal(false);
 
   protected readonly userId: Signal<string | undefined> = toSignal(this.#authUseCase.userId$);
   protected readonly trip: Signal<TripDto | undefined> = toSignal(this.#tripUseCase.tripById$);
@@ -254,5 +264,13 @@ export class TripDetailPageComponent {
         switchMap(() => this.#tripUseCase.deleteActivity(tripId, selectedDay.id, activityId)),
       )
       .subscribe({});
+  }
+
+  protected toggleSidebar() {
+    this.sidebarOpen.update((open) => !open);
+  }
+
+  protected closeSidebar() {
+    this.sidebarOpen.set(false);
   }
 }
