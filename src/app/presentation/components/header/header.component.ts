@@ -1,4 +1,4 @@
-import { ChangeDetectionStrategy, Component, inject, Signal, Type } from '@angular/core';
+import { Component, inject, Signal, Type } from '@angular/core';
 import { TuiAlertService, TuiButton, TuiDialogService, TuiIcon } from '@taiga-ui/core';
 import { NgOptimizedImage } from '@angular/common';
 import { TranslatePipe, TranslateService } from '@ngx-translate/core';
@@ -33,7 +33,6 @@ import { MemberUseCase } from 'app/domain/use-cases/member.use-case';
   ],
   templateUrl: './header.component.html',
   styleUrl: './header.component.scss',
-  changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class HeaderComponent {
   readonly #authUseCase = inject(AuthUseCase);
